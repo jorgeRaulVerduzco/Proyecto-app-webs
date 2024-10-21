@@ -17,7 +17,6 @@ body {
     border-radius: 10px;
 }
 
-/* Modo oscuro */
 body.dark-mode {
     background-color: #1e1e1e;
     color: #f4f4f4;
