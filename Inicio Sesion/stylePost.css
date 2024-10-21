@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #595959;
+    padding: 15px;
+    text-align: center;
+    color: white;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar ul li {
+    margin: 0 10px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.publicacion-detalle {
+    margin-bottom: 30px;
+}
+
+.publicacion-detalle img {
+    max-width: 100%;
+    margin-top: 15px;
+}
+
+.comentarios {
+    margin-top: 20px;
+}
+
+.comentarios h2 {
+    margin-bottom: 10px;
+}
+
+.comentario {
+    background-color: #e8e8e8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.agregar-comentario {
+    margin-top: 30px;
+}
+
+.agregar-comentario textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.agregar-comentario button {
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.agregar-comentario button:hover {
+    background-color: #333;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #595959;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
