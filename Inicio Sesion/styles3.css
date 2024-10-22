@@ -1,55 +1,79 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+
 
 body {
-    background-color: #f4f4f4;
+    margin: 0;
+    background-color: #f2f4f7;
     color: #333;
-    padding: 20px;
+    padding: 0; /* Este debería prevalecer */
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+
 .imagen-publicacion {
-    width: 300px;
+    width: 100%;
     height: auto;
-    border-radius: 10px;
 }
 
 body.dark-mode {
     background-color: #1e1e1e;
     color: #f4f4f4;
 }
+.publicaciones {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px; 
+}
+
+
 
 body.dark-mode .navbar {
     background-color: #333;
 }
 
-body.dark-mode .publicacion, body.dark-mode .publicacion-normal, body.dark-mode .anclada {
-    background-color: #2c2c2c;
-    border-color: #444;
+body.dark-mode .publicacion, 
+body.dark-mode .publicacion-normal, 
+body.dark-mode .anclada {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Más suavidad */
 }
 
+
+
 body.dark-mode button {
-    background-color: #444;
+    background-color: #555;
 }
 
 body.dark-mode button:hover {
-    background-color: #666;
+    background-color: #777; 
 }
 
+/*
+    seccion de la navbar
+*/
+
+
 .navbar {
-    background-color: #595959;
-    padding: 10px 0;
-    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+.navContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 .navbar ul {
+    margin-top: 0;
     list-style: none;
     display: flex;
-    justify-content: flex-end;
     padding-right: 20px;
+}
+.navbar ul img{
+    width: 40px;
+    height: 40px;
 }
 
 .navbar li {
@@ -57,13 +81,80 @@ body.dark-mode button:hover {
 }
 
 .navbar a {
-    color: white;
+    color: black;
+    font-weight: 600;
     text-decoration: none;
     font-size: 14px;
 }
 
 .navbar a:hover {
     text-decoration: underline;
+}
+
+/*
+    sección interactions
+*/
+.btn-comentar, .btn-megusta {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Opcional: centra horizontalmente */
+    padding: 5px 10px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #6c757d;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-comentar:hover{
+    background-color: #f0f1f4;
+  }
+  
+  .btn-megusta .icono-megusta {
+    fill: #858b93; /* Color inicial */
+    margin-right: 8px; /* Espacio entre icono y texto */
+  }
+  .btn-megusta:hover{
+    color: rgb(249, 24, 128);
+  }
+  .btn-megusta:hover .icono-megusta {
+    fill: rgb(249, 24, 128) ;
+    
+    
+  }
+  
+  .btn-comentar svg, .btn-megusta svg{
+    margin-right: 5px;
+  }
+  
+  .btn-comentar span {
+    font-size: 16px;
+  }
+  .bnt-gen{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-evenly;
+    margin: 0 auto;
+  }
+  
+.Comentar{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    color:#858b93;
+    border-radius: 8px;
+}
+.Comentar:hover{
+    background-color: #e8eaee;
+}
+
+.Comentar > div{
+    margin-right: 5px;
 }
 
 header {
@@ -82,14 +173,30 @@ main {
     gap: 20px;
 }
 
-.publicacion {
-    width: 100%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.publicacion-normal, .anclada {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
 }
+.descripcion{
+    padding: 5px 21px;
+}
+.descripcion h3 , .descripcion p{
+    margin: 0;
+}
+.interacciones{
+    padding: 5px 21px;
+}
+.historia{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    padding-bottom: 9px;
+    border-bottom: solid 1px #dbdee1;
+}
+
 
 .publicacion h2 {
     color: #333;
@@ -98,7 +205,6 @@ main {
 
 .publicacion-normal, .anclada {
     background-color: #fff;
-    padding: 15px;
     border-radius: 8px;
     border: 1px solid #ddd;
     margin-bottom: 15px;
@@ -115,19 +221,25 @@ main {
     line-height: 1.5;
     color: #666;
 }
-
-button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #595959;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/*
+    ----------------------------------- usuarios --------------------------------
+*/
+.usuario{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 21px 0 21px;
+}
+.usuarioNombre{
+    height: 40px;
+    font-weight: 700;
+    
 }
 
-button:hover {
-    background-color: #333;
+.usuario img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 footer {
