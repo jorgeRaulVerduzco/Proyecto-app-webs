@@ -60,7 +60,9 @@ h1 {
 .comentarios h2 {
     margin-bottom: 10px;
 }
-
+.p{
+    background-color: white;
+}
 .comentario {
     background-color: #e8e8e8;
     padding: 10px;
