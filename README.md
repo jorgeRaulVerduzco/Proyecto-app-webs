@@ -1,1 +1,12 @@
-aqui va el diagrama
+APLICACIONES WEB - RED SOCIAL DEPORTE
+INTEGRANTES:
+-JORGE RAUL VERDUZCO MORA
+-SERVANDO CONTRERAS JIMENEZ
+-RUBEN SAID GUTIERREZ BOJORQUEZ
+-ESDRAS JAHIR COPADO MARTINEZ
+
+DIAGRAMA BASE DE DATOS:
+https://drive.google.com/file/d/1e4roXfmc-kx3sdlusfC_QoYKFhmzfotf/view?usp=drive_link
+
+SCRIPT BASE DE DATOS:
+https://drive.google.com/file/d/1GQuMiGmPCnubqDgN_xb1oUrNTpfFkXZh/view?usp=drive_link
