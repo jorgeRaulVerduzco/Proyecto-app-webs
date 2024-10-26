@@ -1,0 +1,11 @@
+@startuml diagramaComponentesSorteo
+[Gestión de Sorteos] <-- [Gestión de Números] : Definir rango de números
+[Gestión de Números] --> [Comprobantes de Pago] : Marcar números como pagados
+[Comprobantes de Pago] --> [Usuarios y Autenticación] : Verificar identidad
+[Gestión de Números] --> [Usuarios y Autenticación] : Apartar números
+[Recordatorios Automáticos] --> [Gestión de Números] : Enviar recordatorios basados en números apartados
+[Recordatorios Automáticos] --> [Usuarios y Autenticación] : Enviar recordatorios a usuarios
+[Gestión de Sorteos] --> [Componente de Reportes] : Proporcionar datos del sorteo
+[Gestión de Números] --> [Componente de Reportes] : Proporcionar estado de los números
+[Componente de Reportes] --> [Tablero de Control] : Proporcionar datos en tiempo real
+@enduml
