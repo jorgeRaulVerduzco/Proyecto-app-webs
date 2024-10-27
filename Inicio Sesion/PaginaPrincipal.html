@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ver Publicaciones</title>
-  <link rel="stylesheet" href="Styles3.css" />
+  <link rel="preload" href="estilos/paginaPricipalStyle.css" as="style" onload="this.rel='stylesheet'">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link rel="stylesheet" href="estilos/animation.css">
   <style>
@@ -35,17 +35,11 @@
 
   <main>
     <section class="publicacion">
+
       <h2>Publicación Anclada</h2>
-      <article class="anclada">
-        <h3>La Importancia del Deporte en la Salud</h3>
-        <p>
-          El deporte juega un papel fundamental en la promoción de la salud
-          física y mental. Mantener una rutina de ejercicios puede mejorar la
-          calidad de vida, reducir el riesgo de enfermedades crónicas y
-          fomentar la interacción social.
-        </p>
-      </article>
-      <button class="btn-eliminar">Eliminar</button>
+      <div id="publicacionesAncladas" class="publicacionesAd">
+       <!--aqui se imprimen las publicaciones ancladas-->
+      </div>
     </section>
 
     <section class="publicaciones">
@@ -134,8 +128,36 @@
   </footer>
 
   <script>
+const jsonUrl = 'ejemploPublicaciones.json';
+const publicacionesAncladas = document.getElementById('publicacionesAncladas');
+
+fetch(jsonUrl)
+  .then(response => response.json()) // Convertir la respuesta a JSON
+  .then(data => {
+    // Generar cada publicación a partir de los datos del JSON
+    data.forEach(publicacion => {
+      const article = document.createElement('article');
+      article.classList.add('anclada');
+
+      // Crear la estructura de cada publicación
+      article.innerHTML = `
+        <div class="imgAnclada">
+          <img src="${publicacion.img}" alt="${publicacion.titulo}" width="300">
+        </div>
+        <h3>${publicacion.titulo}</h3>
+        <p>${publicacion.contenido}</p>
+      `;
+
+      // Añadir cada artículo al contenedor
+      publicacionesAncladas.appendChild(article);
+    });
+  })
+  .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+
+
     // JavaScript para alternar entre los SVG
-    const animateBtn= document.getElementById('animateElement');
+    const animateBtn = document.getElementById('animateElement');
     const btnMegusta = document.querySelector('.btn-megusta');
     const svgDefault = btnMegusta.querySelector('.icono-megusta');
     const svgLiked = btnMegusta.querySelector('.icono-megusta.hidden');
@@ -152,5 +174,3 @@
 </body>
 
 </html>
-
-
