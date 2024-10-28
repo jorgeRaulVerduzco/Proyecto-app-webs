@@ -12,5 +12,5 @@ import Entidades.Usuario;
  */
 public interface IUsuarioDAO {
     public boolean IniciarSesion(String usuario,String contrasenia);
-    public Usuario RegistrarUsuario(Usuario usuario);
+    public void RegistrarUsuario(Usuario usuario);
 }
