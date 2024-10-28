@@ -5,8 +5,13 @@
 package Persistencia;
 
 import Entidades.Comentario;
+import Entidades.Post;
+import Entidades.PostComentario;
 import IPersistencia.IComentarioDAO;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -25,22 +30,57 @@ public class ComentarioDAO implements IComentarioDAO {
 
     @Override
     public void registrarComentario(Comentario comentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(comentario);
+        em.getTransaction().commit();
+        em.close();
     }
 
     @Override
     public void registrarComentarioAnclado(int idPublicacion, Comentario comentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Post post = em.find(Post.class, idPublicacion);
+        comentario.setFechaHora(new Date());
+        comentario.setNumLikes(0);
+        comentario.setPostComentarios(new ArrayList<>());
+
+        em.persist(comentario);
+        PostComentario postComentario = new PostComentario();
+        postComentario.setPost(post);
+        postComentario.setComentario(comentario);
+        em.persist(postComentario);
+        em.getTransaction().commit();
+        em.close();
     }
 
     @Override
-    public List<Comentario> consultarComentarios(int idPublicacion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Comentario> consultarComentarios(int idPost) {
+        EntityManager em = emf.createEntityManager();
+        List<Comentario> comentarios = em.createQuery(
+                "SELECT c FROM Comentario c JOIN PostComentario pc ON c.id = pc.comentario.id WHERE pc.post.id = :idPost",
+                Comentario.class)
+                .setParameter("idPost", idPost)
+                .getResultList();
+        em.close();
+        return comentarios;
     }
 
     @Override
     public boolean eliminarComentario(int idComentario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Comentario comentario = em.find(Comentario.class, idComentario);
+        if (comentario != null) {
+            em.remove(comentario);
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        }
+        em.getTransaction().rollback();
+        em.close();
+        return false;
     }
 
 }
