@@ -88,6 +88,7 @@ public class Prueba {
         postComentario.setPost(nuevaPublicacion);
         postComentario.setComentario(nuevoComentario);
 
+        
         postDAO.darLike(nuevaPublicacion.getId());
         // Consultar comentarios de la publicación
         List<Comentario> comentarios = comentarioDAO.consultarComentarios(nuevaPublicacion.getId());
@@ -95,5 +96,7 @@ public class Prueba {
         for (Comentario comentario : comentarios) {
             System.out.println("- " + comentario.getContenido());
         }
+        
+        
     }
 }
