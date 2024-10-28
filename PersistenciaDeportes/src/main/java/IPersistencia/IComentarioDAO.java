@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface IComentarioDAO {
 
-    public void registrarComentario(Comentario comentario);
+    public void registrarComentario(Comentario comentario, int idPublicacion);
 
     public void registrarComentarioAnclado(int idPublicacion, Comentario comentario);
 

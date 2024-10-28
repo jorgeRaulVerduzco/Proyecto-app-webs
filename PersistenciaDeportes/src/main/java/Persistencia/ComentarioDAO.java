@@ -28,14 +28,36 @@ public class ComentarioDAO implements IComentarioDAO {
 
     }
 
-    @Override
-    public void registrarComentario(Comentario comentario) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+@Override
+public void registrarComentario(Comentario comentario, int idPublicacion) {
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    
+    // Obtener el post correspondiente
+    Post post = em.find(Post.class, idPublicacion);
+    
+    if (post != null) {
+        // Establecer los valores adicionales para el comentario
+        comentario.setFechaHora(new Date());
+        comentario.setNumLikes(0);
+
+        // Persistir el comentario
         em.persist(comentario);
-        em.getTransaction().commit();
-        em.close();
+
+        // Crear la asociación entre comentario y post
+        PostComentario postComentario = new PostComentario();
+        postComentario.setPost(post);
+        postComentario.setComentario(comentario);
+
+        // Persistir la asociación
+        em.persist(postComentario);
+    } else {
+        System.out.println("Post no encontrado con ID: " + idPublicacion);
     }
+
+    em.getTransaction().commit();
+    em.close();
+}
 
     @Override
     public void registrarComentarioAnclado(int idPublicacion, Comentario comentario) {

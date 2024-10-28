@@ -54,10 +54,10 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostComentario> postComentarios;
 
-    @Column(name = "num_likes")
-    private Integer numLikes;
+ @Column(name = "num_likes")
+private Integer numLikes = 0;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 

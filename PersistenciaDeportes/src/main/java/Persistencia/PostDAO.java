@@ -70,4 +70,37 @@ public class PostDAO implements IPostDAO {
         em.close();
     }
 
+    @Override
+    public void darLike(int idPost) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Post post = em.find(Post.class, idPost);
+        if (post != null) {
+            post.setNumLikes(post.getNumLikes() + 1); 
+            em.merge(post);  
+        } else {
+            System.out.println("Post no encontrado con ID: " + idPost);
+        }
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void anclarPost(int idPost) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Post post = em.find(Post.class, idPost);
+        if (post != null) {
+            post.setTipoPost("anclado");
+            em.merge(post);
+        } else {
+            System.out.println("Post no encontrado con ID: " + idPost);
+        }
+
+        em.getTransaction().commit();
+        em.close();
+    }
 }

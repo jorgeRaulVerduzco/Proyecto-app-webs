@@ -20,4 +20,8 @@ public interface IPostDAO {
     public List<Post> consultarPublicaciones();
 
     public void eliminarPublicacion(int idPost);
+    
+    public void darLike(int idPost) ;
+    
+    public void anclarPost(int idPost) ;
 }

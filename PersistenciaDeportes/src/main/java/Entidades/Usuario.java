@@ -7,6 +7,7 @@ package Entidades;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,18 +61,18 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario")
     private List<Comentario> comentarios;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id", nullable = false)
     private Rol rol;
 
     @Column(name = "genero", nullable = false)
     private String genero;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "municipio_id", referencedColumnName = "id")
     private Municipio municipio;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "estado_id", referencedColumnName = "id")
     private Estado estado;
 
@@ -91,8 +92,6 @@ public class Usuario implements Serializable {
         this.municipio = municipio;
         this.estado = estado;
     }
-
-    
 
     public Usuario() {
     }
@@ -222,5 +221,4 @@ public class Usuario implements Serializable {
         return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", nombreUsuario=" + nombreUsuario + ", contrasenia=" + contrasenia + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", posts=" + posts + ", comentarios=" + comentarios + ", rol=" + rol + ", genero=" + genero + ", municipio=" + municipio + ", estado=" + estado + '}';
     }
 
-    
 }
