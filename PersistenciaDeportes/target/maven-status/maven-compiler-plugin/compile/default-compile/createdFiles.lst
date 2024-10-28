@@ -3,6 +3,7 @@ Entidades\Post.class
 Entidades\Post_.class
 Entidades\Usuario.class
 Excepciones\PersistenciaException.class
+Persistencia\Usuario.class
 Entidades\PostComentario.class
 Entidades\Comentario_.class
 Entidades\Estado.class
@@ -11,6 +12,7 @@ Entidades\Comentario.class
 Entidades\Rol_.class
 Entidades\Categoria.class
 Entidades\Municipio_.class
+IPersistencia\IUsuarioDAO.class
 Entidades\Categoria_.class
 Entidades\Municipio.class
 Entidades\Rol.class
