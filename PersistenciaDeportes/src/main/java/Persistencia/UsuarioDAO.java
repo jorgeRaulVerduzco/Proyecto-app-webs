@@ -25,25 +25,25 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public boolean IniciarSesion(String usuario, String contrasenia) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager em = emf.createEntityManager();
+        boolean existe = em.createQuery(
+                "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario AND u.contrasenia = :contrasenia",
+                Usuario.class)
+                .setParameter("nombreUsuario", usuario)
+                .setParameter("contrasenia", contrasenia)
+                .getResultList()
+                .size() > 0;
+        em.close();
+        return existe;
     }
 
     @Override
     public void RegistrarUsuario(Usuario usuario) {
         EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-            em.persist(usuario);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+        em.close();
     }
 
 }
