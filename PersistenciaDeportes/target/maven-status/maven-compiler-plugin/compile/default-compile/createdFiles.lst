@@ -2,6 +2,7 @@ Entidades\PostComentario_.class
 Entidades\Post.class
 Entidades\Post_.class
 Entidades\Usuario.class
+Excepciones\PersistenciaException.class
 Entidades\PostComentario.class
 Entidades\Comentario_.class
 Entidades\Estado.class

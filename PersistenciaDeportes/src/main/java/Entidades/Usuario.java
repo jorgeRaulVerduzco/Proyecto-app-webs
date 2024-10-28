@@ -25,7 +25,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Usuario")
 public class Usuario implements Serializable {
-  @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -40,6 +41,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "correo", nullable = false)
     private String correo;
+
+    @Column(name = "nombreUsuario", nullable = false)
+    private String nombreUsuario;
 
     @Column(name = "contrasenia", nullable = false)
     private String contrasenia;
@@ -70,12 +74,13 @@ public class Usuario implements Serializable {
     @OneToOne
     @JoinColumn(name = "estado_id", referencedColumnName = "id")
     private Estado estado;
-    
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, String telefono, Date fechaNacimiento, List<Post> posts, List<Comentario> comentarios, Rol rol, String genero, Municipio municipio, Estado estado) {
+
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<Post> posts, List<Comentario> comentarios, Rol rol, String genero, Municipio municipio, Estado estado) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
+        this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
@@ -87,6 +92,7 @@ public class Usuario implements Serializable {
         this.estado = estado;
     }
 
+    
 
     public Usuario() {
     }
@@ -203,10 +209,18 @@ public class Usuario implements Serializable {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", contrasenia=" + contrasenia + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", posts=" + posts + ", comentarios=" + comentarios + ", rol=" + rol + ", genero=" + genero + ", municipio=" + municipio + ", estado=" + estado + '}';
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-   
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", nombreUsuario=" + nombreUsuario + ", contrasenia=" + contrasenia + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", posts=" + posts + ", comentarios=" + comentarios + ", rol=" + rol + ", genero=" + genero + ", municipio=" + municipio + ", estado=" + estado + '}';
+    }
+
+    
 }
