@@ -114,7 +114,7 @@ public class PostDAO implements IPostDAO {
         }
     }
 
-   @Override
+    @Override
     public void anclarPost(int idPost) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
         try {

@@ -98,7 +98,12 @@ public class Prueba {
         nuevoComentario.setContenido("si le sabes");
         nuevoComentario.setFechaHora(new Date());
         nuevoComentario.setUsuario(nuevoUsuario);
-        comentarioDAO.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
+        try {
+            comentarioDAO.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
+        } catch (PersistenciaException e) {
+            System.err.println("Error al registrar las comentario: " + e.getMessage());
+            e.printStackTrace();
+        }
         System.out.println("Comentario registrado: " + nuevoComentario.getContenido());
 
         PostComentario postComentario = new PostComentario();
@@ -110,7 +115,13 @@ public class Prueba {
             System.err.println("Error al dar like a las publicaciones: " + e.getMessage());
             e.printStackTrace();
         }
-        List<Comentario> comentarios = comentarioDAO.consultarComentarios(nuevaPublicacion.getId());
+        List<Comentario> comentarios = new ArrayList<>();
+        try {
+            comentarios = comentarioDAO.consultarComentarios(nuevaPublicacion.getId());
+        } catch (PersistenciaException e) {
+            System.err.println("Error al consultar las comentarios: " + e.getMessage());
+            e.printStackTrace();
+        }
         System.out.println("Comentarios en la publicacion:");
         for (Comentario comentario : comentarios) {
             System.out.println("- " + comentario.getContenido());

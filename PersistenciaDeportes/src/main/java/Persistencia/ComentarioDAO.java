@@ -7,6 +7,7 @@ package Persistencia;
 import Entidades.Comentario;
 import Entidades.Post;
 import Entidades.PostComentario;
+import Excepciones.PersistenciaException;
 import IPersistencia.IComentarioDAO;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,81 +29,99 @@ public class ComentarioDAO implements IComentarioDAO {
 
     }
 
-@Override
-public void registrarComentario(Comentario comentario, int idPublicacion) {
-    EntityManager em = emf.createEntityManager();
-    em.getTransaction().begin();
-    
-    // Obtener el post correspondiente
-    Post post = em.find(Post.class, idPublicacion);
-    
-    if (post != null) {
-        // Establecer los valores adicionales para el comentario
-        comentario.setFechaHora(new Date());
-        comentario.setNumLikes(0);
-
-        // Persistir el comentario
-        em.persist(comentario);
-
-        // Crear la asociación entre comentario y post
-        PostComentario postComentario = new PostComentario();
-        postComentario.setPost(post);
-        postComentario.setComentario(comentario);
-
-        // Persistir la asociación
-        em.persist(postComentario);
-    } else {
-        System.out.println("Post no encontrado con ID: " + idPublicacion);
-    }
-
-    em.getTransaction().commit();
-    em.close();
-}
-
     @Override
-    public void registrarComentarioAnclado(int idPublicacion, Comentario comentario) {
+    public void registrarComentario(Comentario comentario, int idPublicacion) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Post post = em.find(Post.class, idPublicacion);
-        comentario.setFechaHora(new Date());
-        comentario.setNumLikes(0);
-        comentario.setPostComentarios(new ArrayList<>());
+        try {
+            em.getTransaction().begin();
 
-        em.persist(comentario);
-        PostComentario postComentario = new PostComentario();
-        postComentario.setPost(post);
-        postComentario.setComentario(comentario);
-        em.persist(postComentario);
-        em.getTransaction().commit();
-        em.close();
-    }
+            Post post = em.find(Post.class, idPublicacion);
 
-    @Override
-    public List<Comentario> consultarComentarios(int idPost) {
-        EntityManager em = emf.createEntityManager();
-        List<Comentario> comentarios = em.createQuery(
-                "SELECT c FROM Comentario c JOIN PostComentario pc ON c.id = pc.comentario.id WHERE pc.post.id = :idPost",
-                Comentario.class)
-                .setParameter("idPost", idPost)
-                .getResultList();
-        em.close();
-        return comentarios;
-    }
+            if (post != null) {
+                comentario.setFechaHora(new Date());
+                comentario.setNumLikes(0);
+                em.persist(comentario);
 
-    @Override
-    public boolean eliminarComentario(int idComentario) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Comentario comentario = em.find(Comentario.class, idComentario);
-        if (comentario != null) {
-            em.remove(comentario);
+                PostComentario postComentario = new PostComentario();
+                postComentario.setPost(post);
+                postComentario.setComentario(comentario);
+                em.persist(postComentario);
+            } else {
+                throw new PersistenciaException("Post no encontrado con ID: " + idPublicacion);
+            }
+
             em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar comentario", e);
+        } finally {
             em.close();
-            return true;
         }
-        em.getTransaction().rollback();
-        em.close();
-        return false;
+    }
+
+    @Override
+    public void registrarComentarioAnclado(int idPublicacion, Comentario comentario) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Post post = em.find(Post.class, idPublicacion);
+
+            comentario.setFechaHora(new Date());
+            comentario.setNumLikes(0);
+            comentario.setPostComentarios(new ArrayList<>());
+
+            em.persist(comentario);
+
+            PostComentario postComentario = new PostComentario();
+            postComentario.setPost(post);
+            postComentario.setComentario(comentario);
+            em.persist(postComentario);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar comentario anclado", e);
+        } finally {
+            em.close();
+        }
+    }
+
+      @Override
+    public List<Comentario> consultarComentarios(int idPost) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT c FROM Comentario c JOIN PostComentario pc ON c.id = pc.comentario.id WHERE pc.post.id = :idPost",
+                    Comentario.class)
+                    .setParameter("idPost", idPost)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar los comentarios", e);
+        } finally {
+            em.close();
+        }
+    }
+
+      @Override
+    public boolean eliminarComentario(int idComentario) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Comentario comentario = em.find(Comentario.class, idComentario);
+            if (comentario != null) {
+                em.remove(comentario);
+                em.getTransaction().commit();
+                return true;
+            } else {
+                em.getTransaction().rollback();
+                return false;
+            }
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al eliminar el comentario", e);
+        } finally {
+            em.close();
+        }
     }
 
 }

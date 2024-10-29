@@ -5,6 +5,7 @@
 package IPersistencia;
 
 import Entidades.Comentario;
+import Excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -13,11 +14,11 @@ import java.util.List;
  */
 public interface IComentarioDAO {
 
-    public void registrarComentario(Comentario comentario, int idPublicacion);
+    public void registrarComentario(Comentario comentario, int idPublicacion) throws PersistenciaException;
 
-    public void registrarComentarioAnclado(int idPublicacion, Comentario comentario);
+    public void registrarComentarioAnclado(int idPublicacion, Comentario comentario) throws PersistenciaException ;
 
-    public List<Comentario> consultarComentarios(int idPublicacion);
+    public List<Comentario> consultarComentarios(int idPublicacion) throws PersistenciaException ;
 
-    public boolean eliminarComentario(int idComentario);
+    public boolean eliminarComentario(int idComentario) throws PersistenciaException ;
 }
