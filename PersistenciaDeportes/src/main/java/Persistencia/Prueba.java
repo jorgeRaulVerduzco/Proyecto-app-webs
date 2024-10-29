@@ -13,6 +13,7 @@ import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
+import Fachada.PersistenciaFachada;
 import Factory.DaoFactory;
 import Factory.IDaoFactory;
 import IPersistencia.IComentarioDAO;
@@ -32,14 +33,9 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        PersistenciaFachada fachada = new PersistenciaFachada();
 
-        IDaoFactory daoFactory = DaoFactory.getInstance();
-
-    IUsuarioDAO usuarioDAO = daoFactory.getUsuarioDAO();
-        IPostDAO postDAO = daoFactory.getPostDAO();
-        IComentarioDAO comentarioDAO = daoFactory.getComentarioDAO();
         Usuario nuevoUsuario = new Usuario();
-
         nuevoUsuario.setNombre("Jorge");
         nuevoUsuario.setApellidoPaterno("Verduzco");
         nuevoUsuario.setApellidoMaterno("Mora");
@@ -64,12 +60,12 @@ public class Prueba {
         nuevoUsuario.setGenero("masculino");
 
         try {
-            usuarioDAO.RegistrarUsuario(nuevoUsuario);
+            fachada.registrarUsuario(nuevoUsuario);
+            System.out.println("Usuario registrado: " + nuevoUsuario.getNombreUsuario());
         } catch (PersistenciaException e) {
             System.err.println("Error al registrar el usuario: " + e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("Usuario registrado: " + nuevoUsuario.getNombreUsuario());
 
         Categoria nuevaCategoria = new Categoria();
         nuevaCategoria.setNombre("General");
@@ -81,58 +77,55 @@ public class Prueba {
         nuevaPublicacion.setTipoPost("normal");
         nuevaPublicacion.setUsuario(nuevoUsuario);
         nuevaPublicacion.setCategoria(nuevaCategoria);
-        try {
-            postDAO.registrarPublicacion(nuevaPublicacion);
 
+        try {
+            fachada.registrarPublicacion(nuevaPublicacion);
+            System.out.println("Publicación registrada: " + nuevaPublicacion.getTitulo());
         } catch (PersistenciaException e) {
-            System.err.println("Error al registrar el publicacion: " + e.getMessage());
+            System.err.println("Error al registrar la publicación: " + e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("Publicacion registrada: " + nuevaPublicacion.getTitulo());
-        List<Post> publicaciones = new ArrayList<>(); // Inicializa la lista vacía fuera del try
+
         try {
-            publicaciones = postDAO.consultarPublicaciones();
+            List<Post> publicaciones = fachada.consultarPublicaciones();
+            System.out.println("Publicaciones:");
+            for (Post post : publicaciones) {
+                System.out.println("- " + post.getTitulo());
+            }
         } catch (PersistenciaException e) {
             System.err.println("Error al consultar las publicaciones: " + e.getMessage());
             e.printStackTrace();
         }
 
-        System.out.println("Publicaciones:");
-        for (Post post : publicaciones) {
-            System.out.println("- " + post.getTitulo());
-        }
         Comentario nuevoComentario = new Comentario();
         nuevoComentario.setContenido("si le sabes");
         nuevoComentario.setFechaHora(new Date());
         nuevoComentario.setUsuario(nuevoUsuario);
-        try {
-            comentarioDAO.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
-        } catch (PersistenciaException e) {
-            System.err.println("Error al registrar las comentario: " + e.getMessage());
-            e.printStackTrace();
-        }
-        System.out.println("Comentario registrado: " + nuevoComentario.getContenido());
 
-        PostComentario postComentario = new PostComentario();
-        postComentario.setPost(nuevaPublicacion);
-        postComentario.setComentario(nuevoComentario);
         try {
-            postDAO.darLike(nuevaPublicacion.getId());
+            fachada.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
+            System.out.println("Comentario registrado: " + nuevoComentario.getContenido());
         } catch (PersistenciaException e) {
-            System.err.println("Error al dar like a las publicaciones: " + e.getMessage());
+            System.err.println("Error al registrar el comentario: " + e.getMessage());
             e.printStackTrace();
-        }
-        List<Comentario> comentarios = new ArrayList<>();
-        try {
-            comentarios = comentarioDAO.consultarComentarios(nuevaPublicacion.getId());
-        } catch (PersistenciaException e) {
-            System.err.println("Error al consultar las comentarios: " + e.getMessage());
-            e.printStackTrace();
-        }
-        System.out.println("Comentarios en la publicacion:");
-        for (Comentario comentario : comentarios) {
-            System.out.println("- " + comentario.getContenido());
         }
 
+        try {
+            fachada.darLikePublicacion(nuevaPublicacion.getId());
+        } catch (PersistenciaException e) {
+            System.err.println("Error al dar like a la publicación: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            List<Comentario> comentarios = fachada.consultarComentarios(nuevaPublicacion.getId());
+            System.out.println("Comentarios en la publicación:");
+            for (Comentario comentario : comentarios) {
+                System.out.println("- " + comentario.getContenido());
+            }
+        } catch (PersistenciaException e) {
+            System.err.println("Error al consultar los comentarios: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
