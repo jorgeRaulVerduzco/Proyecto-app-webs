@@ -12,6 +12,8 @@ import Entidades.Post;
 import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
+import Excepciones.PersistenciaException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +31,8 @@ public class Prueba {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         PostDAO postDAO = new PostDAO();
         ComentarioDAO comentarioDAO = new ComentarioDAO();
-
         Usuario nuevoUsuario = new Usuario();
+
         nuevoUsuario.setNombre("Jorge");
         nuevoUsuario.setApellidoPaterno("Verduzco");
         nuevoUsuario.setApellidoMaterno("Mora");
@@ -53,8 +55,13 @@ public class Prueba {
         nuevoUsuario.setMunicipio(municipio);
         nuevoUsuario.setEstado(estado);
         nuevoUsuario.setGenero("masculino");
-        usuarioDAO.RegistrarUsuario(nuevoUsuario);
 
+        try {
+            usuarioDAO.RegistrarUsuario(nuevoUsuario);
+        } catch (PersistenciaException e) {
+            System.err.println("Error al registrar el usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
         System.out.println("Usuario registrado: " + nuevoUsuario.getNombreUsuario());
 
         Categoria nuevaCategoria = new Categoria();
@@ -62,41 +69,52 @@ public class Prueba {
 
         Post nuevaPublicacion = new Post();
         nuevaPublicacion.setFechaCreacion(new Date());
-        nuevaPublicacion.setTitulo("Curry es el mejor");
+        nuevaPublicacion.setTitulo("Curry es el mejorcito");
         nuevaPublicacion.setContenido("yo creo que curry es el goat");
         nuevaPublicacion.setTipoPost("normal");
         nuevaPublicacion.setUsuario(nuevoUsuario);
         nuevaPublicacion.setCategoria(nuevaCategoria);
+        try {
+            postDAO.registrarPublicacion(nuevaPublicacion);
 
-        postDAO.registrarPublicacion(nuevaPublicacion);
+        } catch (PersistenciaException e) {
+            System.err.println("Error al registrar el publicacion: " + e.getMessage());
+            e.printStackTrace();
+        }
         System.out.println("Publicacion registrada: " + nuevaPublicacion.getTitulo());
+        List<Post> publicaciones = new ArrayList<>(); // Inicializa la lista vacía fuera del try
+        try {
+            publicaciones = postDAO.consultarPublicaciones();
+        } catch (PersistenciaException e) {
+            System.err.println("Error al consultar las publicaciones: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        List<Post> publicaciones = postDAO.consultarPublicaciones();
         System.out.println("Publicaciones:");
         for (Post post : publicaciones) {
             System.out.println("- " + post.getTitulo());
         }
-
         Comentario nuevoComentario = new Comentario();
         nuevoComentario.setContenido("si le sabes");
         nuevoComentario.setFechaHora(new Date());
-        nuevoComentario.setUsuario(nuevoUsuario); 
+        nuevoComentario.setUsuario(nuevoUsuario);
         comentarioDAO.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
         System.out.println("Comentario registrado: " + nuevoComentario.getContenido());
 
         PostComentario postComentario = new PostComentario();
         postComentario.setPost(nuevaPublicacion);
         postComentario.setComentario(nuevoComentario);
-
-        
-        postDAO.darLike(nuevaPublicacion.getId());
-        // Consultar comentarios de la publicación
+        try {
+            postDAO.darLike(nuevaPublicacion.getId());
+        } catch (PersistenciaException e) {
+            System.err.println("Error al dar like a las publicaciones: " + e.getMessage());
+            e.printStackTrace();
+        }
         List<Comentario> comentarios = comentarioDAO.consultarComentarios(nuevaPublicacion.getId());
         System.out.println("Comentarios en la publicacion:");
         for (Comentario comentario : comentarios) {
             System.out.println("- " + comentario.getContenido());
         }
-        
-        
+
     }
 }

@@ -5,6 +5,7 @@
 package IPersistencia;
 
 import Entidades.Post;
+import Excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -13,15 +14,15 @@ import java.util.List;
  */
 public interface IPostDAO {
 
-    public void registrarPublicacion(Post post);
+    public void registrarPublicacion(Post post)  throws PersistenciaException;
 
-    public void editarPublicacion(int idPost, Post post);
+    public void editarPublicacion(int idPost, Post post)  throws PersistenciaException;
 
-    public List<Post> consultarPublicaciones();
+    public List<Post> consultarPublicaciones()  throws PersistenciaException ;
 
-    public void eliminarPublicacion(int idPost);
+    public void eliminarPublicacion(int idPost) throws PersistenciaException;
     
-    public void darLike(int idPost) ;
+    public void darLike(int idPost) throws PersistenciaException ;
     
-    public void anclarPost(int idPost) ;
+    public void anclarPost(int idPost) throws PersistenciaException ;
 }

@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Entidades.Usuario;
+import Excepciones.PersistenciaException;
 import IPersistencia.IUsuarioDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,26 +25,35 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public boolean IniciarSesion(String usuario, String contrasenia) {
+    public boolean IniciarSesion(String usuario, String contrasenia) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        boolean existe = em.createQuery(
-                "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario AND u.contrasenia = :contrasenia",
-                Usuario.class)
-                .setParameter("nombreUsuario", usuario)
-                .setParameter("contrasenia", contrasenia)
-                .getResultList()
-                .size() > 0;
-        em.close();
-        return existe;
+        try {
+            return em.createQuery(
+                    "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario AND u.contrasenia = :contrasenia",
+                    Usuario.class)
+                    .setParameter("nombreUsuario", usuario)
+                    .setParameter("contrasenia", contrasenia)
+                    .getResultList()
+                    .size() > 0;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al iniciar sesión", e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public void RegistrarUsuario(Usuario usuario) {
+    public void RegistrarUsuario(Usuario usuario) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(usuario);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(usuario);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar el usuario", e);
+        } finally {
+            em.close();
+        }
     }
-
 }

@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Entidades.Post;
+import Excepciones.PersistenciaException;
 import IPersistencia.IPostDAO;
 import java.util.Date;
 import java.util.List;
@@ -26,81 +27,111 @@ public class PostDAO implements IPostDAO {
     }
 
     @Override
-    public void registrarPublicacion(Post post) {
+    public void registrarPublicacion(Post post) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        post.setFechaCreacion(new Date());
-        em.persist(post);
-        em.getTransaction().commit();
-        em.close();
-    }
-
-    @Override
-    public void editarPublicacion(int idPost, Post post) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Post existingPost = em.find(Post.class, idPost);
-        if (existingPost != null) {
-            existingPost.setTitulo(post.getTitulo());
-            existingPost.setContenido(post.getContenido());
-            existingPost.setFechaEdicion(new Date());
-            em.merge(existingPost);
+        try {
+            em.getTransaction().begin();
+            post.setFechaCreacion(new Date());
+            em.persist(post);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar la publicacion", e);
+        } finally {
+            em.close();
         }
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
-    public List<Post> consultarPublicaciones() {
+    public void editarPublicacion(int idPost, Post post) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        List<Post> publicaciones = em.createQuery("SELECT p FROM Post p", Post.class).getResultList();
-        em.close();
-        return publicaciones;
-    }
-
-    @Override
-    public void eliminarPublicacion(int idPost) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Post post = em.find(Post.class, idPost);
-        if (post != null) {
-            em.remove(post);
+        try {
+            em.getTransaction().begin();
+            Post existingPost = em.find(Post.class, idPost);
+            if (existingPost != null) {
+                existingPost.setTitulo(post.getTitulo());
+                existingPost.setContenido(post.getContenido());
+                existingPost.setFechaEdicion(new Date());
+                em.merge(existingPost);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al editar la publicacion", e);
+        } finally {
+            em.close();
         }
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
-    public void darLike(int idPost) {
+    public List<Post> consultarPublicaciones() throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        Post post = em.find(Post.class, idPost);
-        if (post != null) {
-            post.setNumLikes(post.getNumLikes() + 1); 
-            em.merge(post);  
-        } else {
-            System.out.println("Post no encontrado con ID: " + idPost);
+        try {
+            return em.createQuery("SELECT p FROM Post p", Post.class).getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar las publicaciones", e);
+        } finally {
+            em.close();
         }
-
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
-    public void anclarPost(int idPost) {
+    public void eliminarPublicacion(int idPost) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        Post post = em.find(Post.class, idPost);
-        if (post != null) {
-            post.setTipoPost("anclado");
-            em.merge(post);
-        } else {
-            System.out.println("Post no encontrado con ID: " + idPost);
+        try {
+            em.getTransaction().begin();
+            Post post = em.find(Post.class, idPost);
+            if (post != null) {
+                em.remove(post);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al eliminar la publicacion", e);
+        } finally {
+            em.close();
         }
+    }
 
-        em.getTransaction().commit();
-        em.close();
+    @Override
+    public void darLike(int idPost) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Post post = em.find(Post.class, idPost);
+            if (post != null) {
+                post.setNumLikes(post.getNumLikes() + 1);
+                em.merge(post);
+            } else {
+                System.out.println("Post no encontrado con ID: " + idPost);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al dar like a la publicacion", e);
+        } finally {
+            em.close();
+        }
+    }
+
+   @Override
+    public void anclarPost(int idPost) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Post post = em.find(Post.class, idPost);
+            if (post != null) {
+                post.setTipoPost("anclado");
+                em.merge(post);
+            } else {
+                System.out.println("Post no encontrado con ID: " + idPost);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error al anclar la publicación", e);
+        } finally {
+            em.close();
+        }
     }
 }

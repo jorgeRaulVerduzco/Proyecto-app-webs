@@ -5,12 +5,13 @@
 package IPersistencia;
 
 import Entidades.Usuario;
+import Excepciones.PersistenciaException;
 
 /**
  *
  * @author INEGI
  */
 public interface IUsuarioDAO {
-    public boolean IniciarSesion(String usuario,String contrasenia);
-    public void RegistrarUsuario(Usuario usuario);
+    public boolean IniciarSesion(String usuario,String contrasenia) throws PersistenciaException ;
+    public void RegistrarUsuario(Usuario usuario) throws PersistenciaException ;
 }
