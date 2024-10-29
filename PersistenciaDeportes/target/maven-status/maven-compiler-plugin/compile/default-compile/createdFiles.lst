@@ -16,9 +16,11 @@ IPersistencia\IPostDAO.class
 IPersistencia\IComentarioDAO.class
 Entidades\PostComentario.class
 Entidades\Usuario_.class
+Factory\DaoFactory.class
 Entidades\Municipio_.class
 Entidades\Municipio.class
 Entidades\Rol.class
+Factory\IDaoFactory.class
 Entidades\Estado_.class
 Persistencia\UsuarioDAO.class
 Persistencia\PostDAO.class

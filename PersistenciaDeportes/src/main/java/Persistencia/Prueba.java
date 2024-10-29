@@ -13,6 +13,11 @@ import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
+import Factory.DaoFactory;
+import Factory.IDaoFactory;
+import IPersistencia.IComentarioDAO;
+import IPersistencia.IPostDAO;
+import IPersistencia.IUsuarioDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +32,12 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Crear instancias de DAOs
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        PostDAO postDAO = new PostDAO();
-        ComentarioDAO comentarioDAO = new ComentarioDAO();
+
+        IDaoFactory daoFactory = DaoFactory.getInstance();
+
+    IUsuarioDAO usuarioDAO = daoFactory.getUsuarioDAO();
+        IPostDAO postDAO = daoFactory.getPostDAO();
+        IComentarioDAO comentarioDAO = daoFactory.getComentarioDAO();
         Usuario nuevoUsuario = new Usuario();
 
         nuevoUsuario.setNombre("Jorge");
