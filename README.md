@@ -8,3 +8,5 @@ INTEGRANTES:
 DIAGRAMA BASE DE DATOS:
 https://drive.google.com/file/d/1-KNXeQ2VJJaKW2D2MjgRjwQUSLIeK5wy/view?usp=sharing
 
+LINK DEL STORYBOARD:
+https://www.figma.com/design/sfnVrgYJBaFFjJKGl8jXd8/Untitled?node-id=0-1&t=qMqzeCyrK7SuFAYE-1
