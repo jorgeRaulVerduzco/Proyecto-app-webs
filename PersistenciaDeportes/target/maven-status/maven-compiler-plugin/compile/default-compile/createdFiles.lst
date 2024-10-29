@@ -17,6 +17,7 @@ IPersistencia\IComentarioDAO.class
 Entidades\PostComentario.class
 Entidades\Usuario_.class
 Factory\DaoFactory.class
+Fachada\PersistenciaFachada.class
 Entidades\Municipio_.class
 Entidades\Municipio.class
 Entidades\Rol.class
