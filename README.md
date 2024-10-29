@@ -6,7 +6,5 @@ INTEGRANTES:
 -ESDRAS JAHIR COPADO MARTINEZ
 
 DIAGRAMA BASE DE DATOS:
-https://drive.google.com/file/d/1e4roXfmc-kx3sdlusfC_QoYKFhmzfotf/view?usp=drive_link
+https://drive.google.com/file/d/1-KNXeQ2VJJaKW2D2MjgRjwQUSLIeK5wy/view?usp=sharing
 
-SCRIPT BASE DE DATOS:
-https://drive.google.com/file/d/1GQuMiGmPCnubqDgN_xb1oUrNTpfFkXZh/view?usp=drive_link
