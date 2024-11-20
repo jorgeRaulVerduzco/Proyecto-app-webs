@@ -46,14 +46,16 @@ public class UsuarioDAO implements IUsuarioDAO {
     public void RegistrarUsuario(Usuario usuario) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
         try {
-            em.getTransaction().begin();
+            em.getTransaction().begin(); // Iniciar transacción
             em.persist(usuario);
-            em.getTransaction().commit();
+            em.getTransaction().commit(); // Confirmar transacción
         } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new PersistenciaException("Error al registrar el usuario", e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback(); // Hacer rollback si algo falla
+            }
+            throw new PersistenciaException("Error al registrar usuario", e);
         } finally {
-            em.close();
+            em.close(); // Cerrar EntityManager
         }
     }
 }

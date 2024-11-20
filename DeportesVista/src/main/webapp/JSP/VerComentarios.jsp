@@ -1,0 +1,51 @@
+<%-- 
+    Document   : VerComentarios
+    Created on : 19 nov 2024, 9:31:18 p.m.
+    Author     : INEGI
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver publicacion</title>
+    <link rel="stylesheet" href="stylePost.css">
+</head>
+<body>
+    <header>
+        <h1>Publicacion</h1>
+    </header>
+
+    <main>
+        <section class="lista-publicaciones">
+       
+
+        <section class="publicacion-detalles">
+            <h2>Título de la Publicación</h2>
+            <p>Contenido de la publicación.</p>
+        </section>
+
+        <section class="comentarios">
+            <h3>Comentarios de prueba</h3>
+            <div class="comentario">
+                <DIV class="ComentariosTexto">
+                    <p> Muy buena publicion</p>    
+                    <br>  
+                    <br>        
+                    <p>Esta Muy feo</p>
+                </DIV>
+           
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Blog Deportes. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Enlazando el script externo -->
+    <script src="javaScript/Comentarios.js"></script>
+</body>
+</html>
