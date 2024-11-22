@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -58,4 +59,26 @@ public class UsuarioDAO implements IUsuarioDAO {
             em.close(); // Cerrar EntityManager
         }
     }
+    
+    public Usuario obtenerPorUsername(String username) {
+         EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username");
+            query.setParameter("username", username);
+            return (Usuario) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+     public Usuario obtenerPorEmail(String email) {
+         EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.email = :email");
+            query.setParameter("email", email);
+            return (Usuario) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }

@@ -8,4 +8,22 @@
             30
         </session-timeout>
     </session-config>
+<filter>
+    <filter-name>AutFiltro</filter-name>
+    <filter-class>Servicio.AutFiltro</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>AutFiltro</filter-name>
+    <url-pattern>/Publicaciones.jsp</url-pattern>
+    <url-pattern>/Administracion2.jsp</url-pattern>
+    <url-pattern>/VerComentarios.jsp</url-pattern>
+</filter-mapping>
+<servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>Servlets.LoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+</servlet-mapping>
 </web-app>

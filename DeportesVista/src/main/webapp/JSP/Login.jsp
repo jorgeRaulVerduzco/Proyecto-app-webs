@@ -24,7 +24,7 @@
                 <h1>
                     <span>Inicia Sesión</span>
                 </h1>
-                <form id="loginForm">
+                <form id="loginForm" action="LoginServlet" method="post">
                     <div id="emailElement" class="input-user">
                         <input
                             id="email"
@@ -50,9 +50,10 @@
                     </div>
                     <div id="errorContraseña"></div>
 
-                    <a href="Registrar.jsp">No tienes cuenta?</a>
+                    <a href="Registrar.jsp">¿No tienes cuenta?</a>
                     <button id="submitButton" type="submit">Iniciar sesión</button>
                 </form>
+
             </div>
         </div>
         <footer>
