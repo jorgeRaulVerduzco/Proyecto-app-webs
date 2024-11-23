@@ -20,6 +20,7 @@ import Entidades.Post;
 import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -170,7 +171,7 @@ public class Conversor {
 
         return rol;
     }
-     public UsuarioDTO usuarioToDto(Usuario entity) {
+    public UsuarioDTO usuarioToDto(Usuario entity) {
         if (entity == null) return null;
         
         UsuarioDTO dto = new UsuarioDTO();
@@ -187,18 +188,7 @@ public class Conversor {
         dto.setMunicipio(municipioToDto(entity.getMunicipio()));
         dto.setEstado(estadoToDto(entity.getEstado()));
         
-        if (entity.getPosts() != null) {
-            dto.setPosts(entity.getPosts().stream()
-                .map(this::postToDto)
-                .collect(Collectors.toList()));
-        }
-        
-        if (entity.getComentarios() != null) {
-            dto.setComentarios(entity.getComentarios().stream()
-                .map(this::comentarioToDto)
-                .collect(Collectors.toList()));
-        }
-        
+        // No convertir las colecciones aquí para evitar la recursión
         return dto;
     }
     
@@ -213,18 +203,47 @@ public class Conversor {
         dto.setTipoPost(entity.getTipoPost());
         dto.setNumLikes(entity.getNumLikes());
         dto.setUrlImagen(entity.getUrlImagen());
-        dto.setUsuario(usuarioToDto(entity.getUsuario()));
-        dto.setCategoria(categoriaToDto(entity.getCategoria()));
         
-        if (entity.getPostComentarios() != null) {
-            dto.setPostComentarios(entity.getPostComentarios().stream()
-                .map(this::postComentarioToDto)
-                .collect(Collectors.toList()));
+        // Solo establecer información básica del usuario, sin sus posts
+        if (entity.getUsuario() != null) {
+            UsuarioDTO usuarioDto = new UsuarioDTO();
+            usuarioDto.setNombre(entity.getUsuario().getNombre());
+            usuarioDto.setNombreUsuario(entity.getUsuario().getNombreUsuario());
+            dto.setUsuario(usuarioDto);
         }
         
+        dto.setCategoria(categoriaToDto(entity.getCategoria()));
         return dto;
     }
     
+    public RolDTO rolToDto(Rol entity) {
+        if (entity == null) return null;
+        
+        RolDTO dto = new RolDTO();
+        dto.setTipoRol(entity.getTipoRol());
+        // No establecer la lista de usuarios para evitar la recursión
+        return dto;
+    }
+    
+    
+    public MunicipioDTO municipioToDto(Municipio entity) {
+        if (entity == null) return null;
+        
+        MunicipioDTO dto = new MunicipioDTO();
+        dto.setNombre(entity.getNombre());
+        // No convertir el usuario aquí para evitar la recursión
+        return dto;
+    }
+    
+    public EstadoDTO estadoToDto(Estado entity) {
+        if (entity == null) return null;
+        
+        EstadoDTO dto = new EstadoDTO();
+        dto.setNombre(entity.getNombre());
+        // No convertir el usuario aquí para evitar la recursión
+        return dto;
+    }
+
     public ComentarioDTO comentarioToDto(Comentario entity) {
         if (entity == null) return null;
         
@@ -267,33 +286,18 @@ public class Conversor {
         
         return dto;
     }
+   
+public List<PostDTO> getPostsForUsuario(Usuario usuario) {
+    if (usuario == null || usuario.getPosts() == null) return null;
     
-    public EstadoDTO estadoToDto(Estado entity) {
-        if (entity == null) return null;
-        
-        EstadoDTO dto = new EstadoDTO();
-        dto.setNombre(entity.getNombre());
-        dto.setUsuario(usuarioToDto(entity.getUsuario()));
-        
-        return dto;
-    }
-    
-    public MunicipioDTO municipioToDto(Municipio entity) {
-        if (entity == null) return null;
-        
-        MunicipioDTO dto = new MunicipioDTO();
-        dto.setNombre(entity.getNombre());
-        dto.setUsuario(usuarioToDto(entity.getUsuario()));
-        
-        return dto;
-    }
-    
-    public RolDTO rolToDto(Rol entity) {
-        if (entity == null) return null;
-        
-        RolDTO dto = new RolDTO();
-        dto.setTipoRol(entity.getTipoRol());
-        
-        return dto;
-    }
+    return usuario.getPosts().stream()
+        .map(post -> {
+            PostDTO dto = new PostDTO();
+            dto.setTitulo(post.getTitulo());
+            dto.setContenido(post.getContenido());
+            // No incluir el usuario completo, solo información básica
+            return dto;
+        })
+        .collect(Collectors.toList());
+}
 }

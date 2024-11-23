@@ -4,10 +4,15 @@
  */
 package INegocio;
 
+import DTO.UsuarioDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IUsuarioBO {
-    
+      public boolean iniciarSesion(String usuario, String contrasenia);
+     public void registrarUsuario(UsuarioDTO usuarioDTO);
+     public boolean iniciarSesionFinal(String email, String contrasenia) ;
+     public UsuarioDTO obtenerUsuarioPorEmail(String email);
 }

@@ -26,6 +26,14 @@ public class PostDAO implements IPostDAO {
 
     }
 
+    /**
+     * Registra una nueva publicación en la base de datos, incluyendo la fecha
+     * de creación.
+     *
+     * @param post Objeto Post que se desea registrar en la base de datos.
+     * @throws PersistenciaException Si ocurre un error durante el registro de
+     * la publicación.
+     */
     @Override
     public void registrarPublicacion(Post post) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
@@ -42,6 +50,15 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Edita una publicación existente en la base de datos, actualizando su
+     * título, contenido y fecha de edición.
+     *
+     * @param idPost ID de la publicación que se desea editar.
+     * @param post Objeto Post que contiene los nuevos datos de la publicación.
+     * @throws PersistenciaException Si ocurre un error durante la edición de la
+     * publicación.
+     */
     @Override
     public void editarPublicacion(int idPost, Post post) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
@@ -63,6 +80,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Consulta todas las publicaciones en la base de datos.
+     *
+     * @return Lista de todas las publicaciones encontradas.
+     * @throws PersistenciaException Si ocurre un error durante la consulta de
+     * las publicaciones.
+     */
     @Override
     public List<Post> consultarPublicaciones() throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
@@ -75,6 +99,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Elimina una publicación de la base de datos por su ID.
+     *
+     * @param idPost ID de la publicación que se desea eliminar.
+     * @throws PersistenciaException Si ocurre un error durante la eliminación
+     * de la publicación.
+     */
     @Override
     public void eliminarPublicacion(int idPost) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
@@ -93,6 +124,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Incrementa el número de "likes" de una publicación por su ID.
+     *
+     * @param idPost ID de la publicación a la que se le dará un "like".
+     * @throws PersistenciaException Si ocurre un error al dar el "like" a la
+     * publicación.
+     */
     @Override
     public void darLike(int idPost) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
@@ -114,6 +152,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Ancla una publicación, cambiando su tipo a "anclado".
+     *
+     * @param idPost ID de la publicación que se desea anclar.
+     * @throws PersistenciaException Si ocurre un error al anclar la
+     * publicación.
+     */
     @Override
     public void anclarPost(int idPost) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();

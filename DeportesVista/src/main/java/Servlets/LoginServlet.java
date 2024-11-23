@@ -4,8 +4,8 @@
  */
 package Servlets;
 
-import Entidades.Usuario;
-import Servicio.UsuarioServicio;
+import DTO.UsuarioDTO;
+import Negocio.UsuarioBO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,9 +19,15 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author ruben
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
-private UsuarioServicio usuarioServicio = new UsuarioServicio();
+
+    private UsuarioBO usuarioBO;
+
+    public LoginServlet() {
+        this.usuarioBO = new UsuarioBO();
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,17 +79,49 @@ private UsuarioServicio usuarioServicio = new UsuarioServicio();
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        Usuario usuario = usuarioServicio.autenticar(email, password);
-        if (usuario != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            response.sendRedirect("JSP/PaginaPrincipal.jsp");
-        } else {
-            request.setAttribute("error", "Correo o contraseña incorrectos.");
+        System.out.println("Intento de login - Email: " + email);
+
+        // Validar que los campos no estén vacíos
+        if (email == null || email.trim().isEmpty()
+                || password == null || password.trim().isEmpty()) {
+
+            request.setAttribute("error", "Por favor complete todos los campos");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            // Intentar iniciar sesión
+            boolean loginSuccess = usuarioBO.iniciarSesionFinal(email, password);
+            System.out.println("Resultado del login: " + loginSuccess);
+            if (loginSuccess) {
+                // Si el login es exitoso, obtener los datos del usuario
+                UsuarioDTO usuario = usuarioBO.obtenerUsuarioPorEmail(email);
+
+                // Crear sesión y guardar datos del usuario
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", usuario);
+                session.setAttribute("email", email);
+                session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
+
+                // Redirigir a la página principal
+                response.sendRedirect("JSP/PaginaPrincipal.jsp");
+            } else {
+                // Si el login falla, mostrar mensaje de error
+                request.setAttribute("error", "Email o contraseña incorrectos");
+                request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
+            }
+
+        } catch (Exception e) {
+            // En caso de error, mostrar mensaje genérico
+             System.out.println("Error en servlet: " + e.getMessage());
+        e.printStackTrace();
+        request.setAttribute("error", "Error al iniciar sesión. Por favor intente nuevamente.");
+        request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
         }
     }
 

@@ -12,11 +12,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
         <link rel="stylesheet" href="estilos/loginStyle.css">
-        <script src="javaScript/validarInputs.js"></script>
     </head>
     <body>
         <div class="container">
-
             <div class="form-container">
                 <div class="logo-container">
                     <img src="imagenes/Sport_Logo-removebg.png" alt="">
@@ -24,7 +22,19 @@
                 <h1>
                     <span>Inicia Sesión</span>
                 </h1>
-                <form id="loginForm" action="LoginServlet" method="post">
+
+                <%
+                    String error = (String) request.getAttribute("error");
+                    if (error != null) {
+                %>
+                <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
+                    <%= error%>
+                </div>
+                <%
+                    }
+                %>
+
+                <form id="loginForm" action="${pageContext.request.contextPath}/Login" method="post">
                     <div id="emailElement" class="input-user">
                         <input
                             id="email"
@@ -50,34 +60,13 @@
                     </div>
                     <div id="errorContraseña"></div>
 
-                    <a href="Registrar.jsp">¿No tienes cuenta?</a>
-                    <button id="submitButton" type="submit">Iniciar sesión</button>
+                    <a href="JSP/Registrar.jsp">¿No tienes cuenta?</a>
+                    <button type="submit">Iniciar sesión</button>
                 </form>
-
             </div>
         </div>
         <footer>
             <p>© 2024 Blog Deportes. Todos los derechos reservados.</p>
         </footer>
-
-        <script>
-            document.getElementById('submitButton').addEventListener('click', function (e) {
-                const email = document.getElementById('email');
-                const password = document.getElementById('password');
-                e.preventDefault();
-                limpiarErrores(); // Limpiar errores previos
-
-                if (validateEmail(email) & validatePassword(password)) {
-                    console.log("Formulario enviado correctamente");
-                }
-            });
-
-
-            function limpiarErrores() {
-                document.getElementById('errorEmail').innerHTML = "";
-                document.getElementById('errorContraseña').innerHTML = "";
-            }
-
-        </script>
     </body>
 </html>
