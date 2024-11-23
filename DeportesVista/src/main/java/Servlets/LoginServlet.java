@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author ruben
  */
-@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 
     private UsuarioBO usuarioBO;
@@ -95,34 +94,25 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
-            // Intentar iniciar sesión
             boolean loginSuccess = usuarioBO.iniciarSesionFinal(email, password);
-            System.out.println("Resultado del login: " + loginSuccess);
             if (loginSuccess) {
-                // Si el login es exitoso, obtener los datos del usuario
                 UsuarioDTO usuario = usuarioBO.obtenerUsuarioPorEmail(email);
-
-                // Crear sesión y guardar datos del usuario
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 session.setAttribute("email", email);
                 session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
-
-                // Redirigir a la página principal
                 response.sendRedirect("JSP/PaginaPrincipal.jsp");
             } else {
-                // Si el login falla, mostrar mensaje de error
                 request.setAttribute("error", "Email o contraseña incorrectos");
                 request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
             }
-
         } catch (Exception e) {
-            // En caso de error, mostrar mensaje genérico
-             System.out.println("Error en servlet: " + e.getMessage());
-        e.printStackTrace();
-        request.setAttribute("error", "Error al iniciar sesión. Por favor intente nuevamente.");
-        request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
+            System.out.println("Error en servlet: " + e.getMessage());
+            e.printStackTrace();
+            request.setAttribute("error", "Error al iniciar sesión. Por favor intente nuevamente.");
+            request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
         }
+
     }
 
     /**

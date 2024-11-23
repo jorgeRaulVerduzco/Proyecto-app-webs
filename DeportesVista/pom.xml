@@ -9,8 +9,9 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jakartaee>11.0.0-M1</jakartaee>
+        <jakartaee>10.0.0</jakartaee>  <!-- Cambiar a una versión estable de Jakarta EE -->
     </properties>
+
     
     <dependencies>
         <!-- Jakarta EE API -->
@@ -20,30 +21,14 @@
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
-        
-        <!-- Jakarta Servlet API -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Jakarta JSP API -->
-        <dependency>
-            <groupId>jakarta.servlet.jsp</groupId>
-            <artifactId>jakarta.servlet.jsp-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
+    
         <!-- Jakarta JSTL -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
         </dependency>
-        
+
         <!-- Tu dependencia de negocio -->
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -51,6 +36,7 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
     
     <build>
         <plugins>

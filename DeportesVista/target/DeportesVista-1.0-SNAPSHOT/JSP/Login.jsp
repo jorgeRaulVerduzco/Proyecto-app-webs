@@ -11,7 +11,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
-        <link rel="stylesheet" href="estilos/loginStyle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/loginStyle.css">
+
     </head>
     <body>
         <div class="container">
@@ -34,11 +35,11 @@
                     }
                 %>
 
-                <form id="loginForm" action="${pageContext.request.contextPath}/Login" method="post">
+               <form id="loginForm" action="${pageContext.request.contextPath}/Login" method="post">
                     <div id="emailElement" class="input-user">
                         <input
                             id="email"
-                            required=""
+                            required
                             type="text"
                             name="email"
                             autocomplete="off"
@@ -51,7 +52,7 @@
                     <div id="passwordElement" class="input-user">
                         <input
                             id="password"
-                            required=""
+                            required
                             type="password"
                             name="password"
                             class="input"
@@ -60,9 +61,10 @@
                     </div>
                     <div id="errorContraseña"></div>
 
-                    <a href="JSP/Registrar.jsp">¿No tienes cuenta?</a>
+                    <a href="${pageContext.request.contextPath}/JSP/Registrar.jsp">¿No tienes cuenta?</a>
                     <button type="submit">Iniciar sesión</button>
                 </form>
+
             </div>
         </div>
         <footer>
