@@ -34,9 +34,17 @@ public class Prueba {
      */
     public static void main(String[] args) {
         PersistenciaFachada fachada = new PersistenciaFachada();
-/**
- * 
- */
+        /**
+         * 
+         */
+        Rol rol = new Rol();
+        rol.setTipoRol("admin");
+
+        Municipio municipio = new Municipio();
+        municipio.setNombre("Obregon");
+
+        Estado estado = new Estado();
+        estado.setNombre("Sonora");
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre("Jorge");
         nuevoUsuario.setApellidoPaterno("Verduzco");
@@ -47,17 +55,6 @@ public class Prueba {
         nuevoUsuario.setTelefono("1234567890");
         nuevoUsuario.setFechaNacimiento(new Date());
 
-        Rol rol = new Rol();
-        rol.setTipoRol("admin");
-
-        Municipio municipio = new Municipio();
-        municipio.setNombre("Obregon");
-
-        System.out.println(municipio.toString());
-
-        Estado estado = new Estado();
-        estado.setNombre("Sonora");
-
         nuevoUsuario.setRol(rol);
         nuevoUsuario.setMunicipio(municipio);
         nuevoUsuario.setEstado(estado);
@@ -65,7 +62,7 @@ public class Prueba {
 
         try {
             fachada.registrarUsuario(nuevoUsuario);
-            System.out.println("Usuario registrado: " + nuevoUsuario.getNombre());
+            System.out.println("Usuario registrado: " + nuevoUsuario.toString());
         } catch (PersistenciaException e) {
             System.err.println("Error al registrar el usuario: " + e.getMessage());
             e.printStackTrace();

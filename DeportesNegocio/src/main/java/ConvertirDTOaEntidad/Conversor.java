@@ -213,8 +213,6 @@ public class Conversor {
             dto.setUsuario(usuarioDto);
         }
     
-
-    
         return dto;
     }
     
