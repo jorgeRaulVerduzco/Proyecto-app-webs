@@ -212,6 +212,9 @@ main {
 }
 
 
+
+
+
 .publicacion h2 {
     color: #333;
     margin-bottom: 10px;
@@ -300,4 +303,9 @@ footer {
     margin-top: 20px;
     font-size: 12px;
     color: #595959;
+}
+
+.btn-post{
+    display: flex;
+    justify-content: space-around;
 }

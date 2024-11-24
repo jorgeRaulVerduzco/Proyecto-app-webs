@@ -37,6 +37,35 @@ public class Prueba {
         /**
          * 
          */
+
+         
+         
+
+         
+
+
+    }
+    public static void pruebaComentarios(PersistenciaFachada fachada){
+        try {
+            Usuario usuario = fachada.obtenerPorId(5);
+            System.out.println(usuario.getNombre());
+
+            Comentario nuevoComentario = new Comentario();
+            nuevoComentario.setContenido("contenido del comentario");
+            nuevoComentario.setFechaHora(new Date());
+            nuevoComentario.setUsuario(usuario);
+
+            Post nuevaPublicacion = fachada.consultarPublicacionePorId(2);
+            System.out.println("Título: " + nuevaPublicacion.getTitulo());
+
+            fachada.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
+        } catch (PersistenciaException e) {
+            System.err.println("Error al registrar el usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    public static void prueba1(PersistenciaFachada fachada){
         Rol rol = new Rol();
         rol.setTipoRol("admin");
 
@@ -76,6 +105,7 @@ public class Prueba {
         nuevaPublicacion.setTitulo("Curry es el mejorcito");
         nuevaPublicacion.setContenido("yo creo que curry es el goat");
         nuevaPublicacion.setTipoPost("normal");
+        nuevaPublicacion.setUrlImagen("https://pbs.twimg.com/media/FnU_6aDaMAAkOyz.jpg");
         nuevaPublicacion.setUsuario(nuevoUsuario);
         nuevaPublicacion.setCategoria(nuevaCategoria);
 

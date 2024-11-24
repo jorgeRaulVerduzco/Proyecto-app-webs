@@ -6,10 +6,12 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -52,11 +54,26 @@ public class Comentarios extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    try (PrintWriter out = response.getWriter()) {
+        
+        String id = request.getParameter("id");
+        // Aquí va tu lógica para generar la respuesta HTML
+        out.println("<html>");
+        out.println("<head><title>Publicaciones</title></head>");
+        out.println("<body>");
+        out.println("<h1>Comentarios del Post no. "+id+"</h1>");
+        out.println("</body>");
+        out.println("</html>");
+    } catch (Exception e) {
+        e.printStackTrace(); // Esto registra el error en el servidor
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al consultar publicaciones");
     }
+}
+
 
     /**
      * Handles the HTTP <code>POST</code> method.

@@ -45,6 +45,14 @@ public interface IPostDAO {
     public List<Post> consultarPublicaciones() throws PersistenciaException;
 
     /**
+     * Consulta una publicación por su ID.
+     *
+     * @param id ID de la publicación que se desea consultar.
+     * @return Objeto Post con los datos de la publicación.
+     */
+    public Post consultarPublicacionePorId(int id) throws PersistenciaException;
+
+    /**
      * Elimina una publicación de la base de datos por su ID.
      *
      * @param idPost ID de la publicación que se desea eliminar.

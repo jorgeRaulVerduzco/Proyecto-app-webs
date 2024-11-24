@@ -46,6 +46,8 @@ public interface IUsuarioDAO {
      */
     public Usuario obtenerPorUsername(String username) throws PersistenciaException;
 
+    public Usuario obtenerPorId(int id) throws PersistenciaException;
+
     /**
      * Obtiene un usuario por su correo electrónico (email).
      *

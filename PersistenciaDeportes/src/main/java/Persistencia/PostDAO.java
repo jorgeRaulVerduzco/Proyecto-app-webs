@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Entidades.Post;
+import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import IPersistencia.IPostDAO;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -94,6 +96,20 @@ public class PostDAO implements IPostDAO {
             return em.createQuery("SELECT p FROM Post p", Post.class).getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al consultar las publicaciones", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Post consultarPublicacionePorId(int id) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT p FROM Post p WHERE p.id = :id");
+        query.setParameter("id", id);
+        return (Post) query.getSingleResult(); // Si no hay resultado, lanza excepción
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar la publicacion", e);
         } finally {
             em.close();
         }

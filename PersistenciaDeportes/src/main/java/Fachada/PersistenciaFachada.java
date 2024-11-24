@@ -48,6 +48,18 @@ public class PersistenciaFachada {
     public void registrarUsuario(Usuario usuario) throws PersistenciaException {
         usuarioDAO.RegistrarUsuario(usuario);
     }
+    
+    /**
+     * Obtiene un usuario por su identificador único.
+     *
+     * @param id El identificador único del usuario a buscar.
+     * @return El usuario encontrado con el identificador proporcionado.
+     * @throws PersistenciaException Si ocurre un error durante la búsqueda del usuario.
+     */
+    public Usuario obtenerPorId(int id) throws PersistenciaException {
+        return usuarioDAO.obtenerPorId(id);
+    }
+
 
     /**
      * Registra una nueva publicación en el sistema.
@@ -93,6 +105,10 @@ public class PersistenciaFachada {
      */
     public void darLikePublicacion(int idPublicacion) throws PersistenciaException {
         postDAO.darLike(idPublicacion);
+    }
+
+    public Post consultarPublicacionePorId (int idPublicacion) throws PersistenciaException {
+        return postDAO.consultarPublicacionePorId(idPublicacion);
     }
 
     /**

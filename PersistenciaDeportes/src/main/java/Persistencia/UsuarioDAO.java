@@ -30,12 +30,12 @@ public class UsuarioDAO implements IUsuarioDAO {
      * Inicia sesión de un usuario verificando su nombre de usuario y contraseña
      * en la base de datos.
      *
-     * @param usuario Nombre de usuario del usuario que desea iniciar sesión.
+     * @param usuario     Nombre de usuario del usuario que desea iniciar sesión.
      * @param contrasenia Contraseña del usuario que desea iniciar sesión.
      * @return true si el nombre de usuario y la contraseña coinciden en la base
-     * de datos, false en caso contrario.
+     *         de datos, false en caso contrario.
      * @throws PersistenciaException Si ocurre un error al interactuar con la
-     * base de datos.
+     *                               base de datos.
      */
     @Override
     public boolean IniciarSesion(String usuario, String contrasenia) throws PersistenciaException {
@@ -60,7 +60,7 @@ public class UsuarioDAO implements IUsuarioDAO {
      *
      * @param usuario Objeto Usuario que se desea registrar en la base de datos.
      * @throws PersistenciaException Si ocurre un error durante el registro del
-     * usuario.
+     *                               usuario.
      */
     @Override
     public void RegistrarUsuario(Usuario usuario) throws PersistenciaException {
@@ -84,9 +84,9 @@ public class UsuarioDAO implements IUsuarioDAO {
      *
      * @param username Nombre de usuario a buscar.
      * @return El objeto Usuario correspondiente al nombre de usuario, o null si
-     * no se encuentra.
+     *         no se encuentra.
      * @throws PersistenciaException Si ocurre un error durante la búsqueda del
-     * usuario.
+     *                               usuario.
      */
     @Override
     public Usuario obtenerPorUsername(String username) throws PersistenciaException {
@@ -101,13 +101,39 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     /**
+     * Obtiene un usuario por su identificador único (ID).
+     *
+     * @param id Identificador único del usuario a buscar.
+     * @return El objeto Usuario correspondiente al ID, o null si no se encuentra.
+     * @throws PersistenciaException Si ocurre un error durante la búsqueda del
+     *                               usuario.
+     */
+    @Override
+    public Usuario obtenerPorId(int id) throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id");
+            query.setParameter("id", id);
+            return (Usuario) query.getSingleResult(); // Si no hay resultado, lanza excepción
+        } catch (NoResultException e) {
+            // Retorna null si no hay resultados
+            return null;
+        } catch (Exception e) {
+            // Maneja cualquier otra excepción
+            throw new PersistenciaException("Error al buscar usuario por ID", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
      * Obtiene un usuario por su correo electrónico (email).
      *
      * @param email Correo electrónico a buscar.
      * @return El objeto Usuario correspondiente al correo, o null si no se
-     * encuentra.
+     *         encuentra.
      * @throws PersistenciaException Si ocurre un error durante la búsqueda del
-     * usuario.
+     *                               usuario.
      */
     @Override
     public Usuario obtenerPorEmail(String email) throws PersistenciaException {
@@ -124,9 +150,11 @@ public class UsuarioDAO implements IUsuarioDAO {
             em.close();
         }
     }
- /**
+
+    /**
      * Valida las credenciales de un usuario
-     * @param email Email del usuario
+     * 
+     * @param email       Email del usuario
      * @param contrasenia Contraseña del usuario
      * @return true si las credenciales son válidas, false en caso contrario
      * @throws PersistenciaException Si ocurre un error durante la validación
