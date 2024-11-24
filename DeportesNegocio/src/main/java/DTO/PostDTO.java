@@ -126,7 +126,7 @@ public class PostDTO {
 
     @Override
     public String toString() {
-        return "PostDTO{" + "fechaCreacion=" + fechaCreacion + ", titulo=" + titulo + ", contenido=" + contenido + ", fechaEdicion=" + fechaEdicion + ", usuario=" + usuario + ", tipoPost=" + tipoPost + ", postComentarios=" + postComentarios + ", numLikes=" + numLikes + ", categoria=" + categoria + ", urlImagen=" + urlImagen + '}';
+        return "PostDTO{" + "fechaCreacion=" + fechaCreacion + ", titulo=" + titulo + ", contenido=" + contenido + ", fechaEdicion=" + fechaEdicion + ", usuario=" + usuario.toString() + ", tipoPost=" + tipoPost + ", postComentarios=" + postComentarios + ", numLikes=" + numLikes + ", categoria=" + categoria + ", urlImagen=" + urlImagen + '}';
     }
 
 }

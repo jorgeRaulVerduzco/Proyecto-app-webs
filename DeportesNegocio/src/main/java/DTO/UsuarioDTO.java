@@ -12,6 +12,7 @@ import java.util.List;
  * @author INEGI
  */
 public class UsuarioDTO {
+    private Long id;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -30,7 +31,8 @@ public class UsuarioDTO {
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<PostDTO> posts, List<ComentarioDTO> comentarios, RolDTO rol, String genero, MunicipioDTO municipio, EstadoDTO estado) {
+    public UsuarioDTO(Long id,String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<PostDTO> posts, List<ComentarioDTO> comentarios, RolDTO rol, String genero, MunicipioDTO municipio, EstadoDTO estado) {
+        this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -45,6 +47,14 @@ public class UsuarioDTO {
         this.genero = genero;
         this.municipio = municipio;
         this.estado = estado;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -161,6 +171,6 @@ public class UsuarioDTO {
 
     @Override
     public String toString() {
-        return "UsuarioDTO{" + "nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", correo=" + correo + ", nombreUsuario=" + nombreUsuario + ", contrasenia=" + contrasenia + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", posts=" + posts + ", comentarios=" + comentarios + ", rol=" + rol + ", genero=" + genero + ", municipio=" + municipio + ", estado=" + estado + '}';
+        return "UsuarioDTO{" +"id: "+id+ "nombre=" + nombre + ", apellidoPaterno:" + apellidoPaterno + ", apellidoMaterno:" + apellidoMaterno + ", correo:" + correo + ", nombreUsuario: " + nombreUsuario + ", contrasenia: " + contrasenia + ", telefono: " + telefono + ", fechaNacimiento: " + fechaNacimiento + ", posts: " + posts + ", comentarios: " + comentarios + ", rol: " + rol + ", genero: " + genero + ", municipio: " + municipio + ", estado: " + estado + '}';
     }
 }

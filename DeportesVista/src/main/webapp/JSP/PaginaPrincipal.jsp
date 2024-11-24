@@ -52,70 +52,7 @@
     <section class="publicaciones">
       <h2>Publicaciones</h2>
 
-      <article class="publicacion-normal">
-        <div class="usuario">
-          <div class="usuarioImg">
-            <img src="imagenes/prueba.jpg" alt="">
-          </div>
-          <div class="usuarioNombre">
-            <span>CDO Noticias</span>
-          </div>
-        </div>
-
-        <div class="descripcion">
-          <h3>La Leyenda de Stephen Curry en la NBA</h3>
-          <p>
-            Stephen Curry ha revolucionado el baloncesto moderno con su
-            habilidad para lanzar desde largas distancias. A lo largo de su
-            carrera, ha establecido múltiples récords, llevando a los Golden
-            State Warriors a varios campeonatos de la NBA. Su capacidad para
-            cambiar el juego con su estilo único lo convierte en uno de los
-            jugadores más influyentes de la historia.
-          </p>
-        </div>
-
-        <img src="https://pbs.twimg.com/media/FnU_6aDaMAAkOyz.jpg" alt="Stephen Curry" class="imagen-publicacion">
-        <br>
-        <div class="interacciones">
-          <div class="historia">
-            <span>Likes: 123</span>
-            <span>Comentarios: 45</span>
-            <span>Me gusta</span>
-          </div>
-
-          <div class="bnt-gen">
-            <button class="btn-comentar">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icono-comentar" width="21" height="21" viewBox="0 0 24 24"
-                fill="none" stroke="#6c757d" stroke-width="0.1" stroke-linecap="round" stroke-linejoin="round">
-                <path fill="#858b93"
-                  d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z">
-                </path>
-              </svg>
-              <span class="contenedorNombre">Comentar</span>
-            </button>
-            <button class="btn-megusta ">
-              <div id="animateElement" class="animate__animated">
-                <!-- Primer SVG visible por defecto -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icono-megusta" width="21" height="21" viewBox="0 0 24 24"
-                  fill="#858b93" stroke="none" stroke-width="0.1" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z">
-                  </path>
-                </svg>
-                <!-- Segundo SVG oculto por defecto -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icono-megusta hidden" width="21" height="21"
-                  viewBox="0 0 24 24" fill="none" stroke="none" stroke-width="0.1" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path
-                    d="M20.884 13.19c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z">
-                  </path>
-                </svg>
-              </div>
-              <span class="contenedorNombre">Me gusta</span>
-            </button>
-          </div>
-        </div>
-      </article>
+        <jsp:include page="/Post" />
 
       <article class="publicacion-normal">
         <h3>Cristiano nunca sera mejor que messi 😹</h3>

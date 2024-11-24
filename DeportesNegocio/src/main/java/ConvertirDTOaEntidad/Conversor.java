@@ -208,6 +208,7 @@ public class Conversor {
         // Solo establecer información básica del usuario, sin sus posts
         if (entity.getUsuario() != null) {
             UsuarioDTO usuarioDto = new UsuarioDTO();
+            usuarioDto.setId(entity.getUsuario().getId());
             usuarioDto.setNombre(entity.getUsuario().getNombre());
             usuarioDto.setNombreUsuario(entity.getUsuario().getNombreUsuario());
             dto.setUsuario(usuarioDto);
