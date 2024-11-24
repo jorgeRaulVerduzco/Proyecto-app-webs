@@ -77,15 +77,26 @@ public class PostBO implements IPostBO {
     @Override
     public List<PostDTO> consultarPublicaciones() {
         try {
+            // Consulta las publicaciones desde la fachada
             List<Post> posts = fachada.consultarPublicaciones();
+    
+            // Verifica si la lista de publicaciones es nula
+            if(posts == null) {
+                throw new IllegalStateException("No se encontraron publicaciones.");
+            }
+            
+            // Mapea las publicaciones a DTOs
             return posts.stream()
                     .map(conversor::postToDto)
                     .collect(Collectors.toList());
         } catch (PersistenciaException ex) {
             Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }
+    
 
     /**
      * Elimina una publicación del sistema.

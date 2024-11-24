@@ -194,8 +194,9 @@ public class Conversor {
     
     public PostDTO postToDto(Post entity) {
         if (entity == null) return null;
-        
+    
         PostDTO dto = new PostDTO();
+        dto.setID(entity.getId());
         dto.setFechaCreacion(entity.getFechaCreacion());
         dto.setTitulo(entity.getTitulo());
         dto.setContenido(entity.getContenido());
@@ -203,7 +204,7 @@ public class Conversor {
         dto.setTipoPost(entity.getTipoPost());
         dto.setNumLikes(entity.getNumLikes());
         dto.setUrlImagen(entity.getUrlImagen());
-        
+    
         // Solo establecer información básica del usuario, sin sus posts
         if (entity.getUsuario() != null) {
             UsuarioDTO usuarioDto = new UsuarioDTO();
@@ -211,10 +212,12 @@ public class Conversor {
             usuarioDto.setNombreUsuario(entity.getUsuario().getNombreUsuario());
             dto.setUsuario(usuarioDto);
         }
-        
-        dto.setCategoria(categoriaToDto(entity.getCategoria()));
+    
+
+    
         return dto;
     }
+    
     
     public RolDTO rolToDto(Rol entity) {
         if (entity == null) return null;

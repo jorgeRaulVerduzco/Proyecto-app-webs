@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class PostDTO {
 
+    private int ID;
+
     private Date fechaCreacion;
 
     private String titulo;
@@ -40,6 +42,12 @@ public class PostDTO {
         return fechaCreacion;
     }
 
+    public void setID(int id) {
+        ID = id;
+    }
+    public int getID() {
+        return ID;
+    }
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }

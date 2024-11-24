@@ -34,7 +34,9 @@ public class Prueba {
      */
     public static void main(String[] args) {
         PersistenciaFachada fachada = new PersistenciaFachada();
-
+/**
+ * 
+ */
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre("Jorge");
         nuevoUsuario.setApellidoPaterno("Verduzco");
@@ -51,6 +53,8 @@ public class Prueba {
         Municipio municipio = new Municipio();
         municipio.setNombre("Obregon");
 
+        System.out.println(municipio.toString());
+
         Estado estado = new Estado();
         estado.setNombre("Sonora");
 
@@ -61,7 +65,7 @@ public class Prueba {
 
         try {
             fachada.registrarUsuario(nuevoUsuario);
-            System.out.println("Usuario registrado: " + nuevoUsuario.getNombreUsuario());
+            System.out.println("Usuario registrado: " + nuevoUsuario.getNombre());
         } catch (PersistenciaException e) {
             System.err.println("Error al registrar el usuario: " + e.getMessage());
             e.printStackTrace();
