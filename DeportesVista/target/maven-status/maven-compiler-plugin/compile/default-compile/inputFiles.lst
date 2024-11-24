@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\com\mycompany\deportesvista\JakartaRestConfiguration.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\com\mycompany\deportesvista\resources\JakartaEE11Resource.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\LoginServlet.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\Post.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\RegistrarServlet.java
+=======
+C:\Users\INEGI\Downloads\Proyecto app webs\DeportesVista\src\main\java\com\mycompany\deportesvista\JakartaRestConfiguration.java
+C:\Users\INEGI\Downloads\Proyecto app webs\DeportesVista\src\main\java\com\mycompany\deportesvista\resources\JakartaEE11Resource.java
+C:\Users\INEGI\Downloads\Proyecto app webs\DeportesVista\src\main\java\Servlets\LoginServlet.java
+C:\Users\INEGI\Downloads\Proyecto app webs\DeportesVista\src\main\java\Servlets\RegistrarServlet.java
+>>>>>>> 100d81acca6f52f37a0c7e7e4a78c5e2b62e8653
