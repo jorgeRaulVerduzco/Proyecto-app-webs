@@ -35,6 +35,12 @@
             <artifactId>DeportesNegocio</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-core-api</artifactId>
+            <version>10.0.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     
