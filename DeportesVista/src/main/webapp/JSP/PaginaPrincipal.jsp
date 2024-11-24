@@ -12,7 +12,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ver Publicaciones</title>
-  <link rel="preload" href="CSS/paginaPricipalStyle.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="${pageContext.request.contextPath}/CSS/paginaPrincipalStyle.css" as="style" onload="this.rel='stylesheet'">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link rel="stylesheet" href="CSS/animation.css">
   <style>
