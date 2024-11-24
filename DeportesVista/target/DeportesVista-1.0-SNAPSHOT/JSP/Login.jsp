@@ -11,8 +11,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+<<<<<<< HEAD
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/loginStyle.css">
 
+=======
+        <link rel="stylesheet" href="../CSS/loginStyle.css">
+>>>>>>> 29e0867ee2d7ad2b5626dcb82ba2771007a053a1
     </head>
     <body>
         <div class="container">
