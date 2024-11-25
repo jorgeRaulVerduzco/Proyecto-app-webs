@@ -66,7 +66,7 @@ public class Prueba {
             nuevoComentario.setFechaHora(new Date());
             nuevoComentario.setUsuario(usuario);
 
-            Post nuevaPublicacion = fachada.consultarPublicacionePorId(2);
+            Post nuevaPublicacion = fachada.consultarPublicacioneById(2);
             System.out.println("Título: " + nuevaPublicacion.getTitulo());
 
             fachada.registrarComentario(nuevoComentario, nuevaPublicacion.getId());

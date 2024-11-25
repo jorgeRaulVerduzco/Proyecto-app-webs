@@ -19,6 +19,8 @@ public interface IPostBO {
 
     public List<PostDTO> consultarPublicaciones();
 
+    public PostDTO consultarPublicacionesById(int idPost);
+
     public void eliminarPublicacion(int idPost);
 
     public void darLike(int idPost);

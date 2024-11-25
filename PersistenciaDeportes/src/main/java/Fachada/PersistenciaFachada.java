@@ -107,9 +107,17 @@ public class PersistenciaFachada {
         postDAO.darLike(idPublicacion);
     }
 
-    public Post consultarPublicacionePorId (int idPublicacion) throws PersistenciaException {
+    /**
+     * Retrieves a specific post from the system using its unique identifier.
+     *
+     * @param idPublicacion The unique identifier of the post to be retrieved.
+     * @return The post found with the provided identifier.
+     * @throws PersistenciaException If an error occurs while searching for the post.
+     */
+    public Post consultarPublicacioneById (int idPublicacion) throws PersistenciaException {
         return postDAO.consultarPublicacionePorId(idPublicacion);
     }
+
 
     /**
      * Consulta todos los comentarios asociados a una publicación.

@@ -96,6 +96,32 @@ public class PostBO implements IPostBO {
         }
         return null;
     }
+
+    /**
+     * Consulta una publicación por su ID. Convierte la entidad de publicación a
+     * DTO y la devuelve.
+     *
+     * @param idPost El ID de la publicación a consultar.
+     */
+    @Override
+    public PostDTO consultarPublicacionesById(int idPost) {
+        try {
+            Post post = fachada.consultarPublicacioneById(idPost);
+            
+            // Verifica si la publicación es nula
+            if(post == null) {
+                throw new IllegalStateException("No se encontró la publicación.");
+            }
+            
+            // Mapea la publicación a DTO
+            return conversor.postToDto(post);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
     
 
     /**

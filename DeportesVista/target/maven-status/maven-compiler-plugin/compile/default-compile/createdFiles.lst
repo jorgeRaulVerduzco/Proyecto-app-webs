@@ -1,4 +1,5 @@
 Servlets\Post.class
+Servlets\ObtenerComentarios.class
 Servlets\RegistrarServlet.class
 com\mycompany\deportesvista\resources\JakartaEE11Resource.class
 Servlets\LoginServlet.class

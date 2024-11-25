@@ -17,6 +17,9 @@ import java.util.List;
 
 import Negocio.ComentarioBO;
 import DTO.ComentarioDTO;
+import DTO.PostDTO;
+import Negocio.PostBO;
+import jakarta.servlet.RequestDispatcher;
 
 /**
  *
@@ -25,9 +28,11 @@ import DTO.ComentarioDTO;
 public class Comentarios extends HttpServlet {
     
     private ComentarioBO comentarioBo;
+    private PostBO postBO;
     
     public Comentarios(){
         this.comentarioBo=new ComentarioBO();
+        this.postBO=new PostBO();
     }
 
     /**
@@ -56,7 +61,13 @@ public class Comentarios extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+
+
+
+
+    
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -71,7 +82,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
 
-    try (PrintWriter out = response.getWriter()) {
+    try {
         // Validar y obtener el parámetro 'id'
         int id;
         try {
@@ -81,36 +92,34 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             return;
         }
 
+        // Consultar la publicación por id
+        PostDTO post = postBO.consultarPublicacionesById(id);
+
         // Consultar los comentarios usando el BO
         List<ComentarioDTO> comentarios = comentarioBo.consultarComentarios(id);
 
-        // Generar HTML
-        out.println("<html>");
-        out.println("<head><title>Publicaciones</title></head>");
-        out.println("<body>");
-        out.println("<h1>Comentarios del Post no. " + id + "</h1>");
-
-        // Verificar si hay comentarios
-        if (comentarios == null || comentarios.isEmpty()) {
-            out.println("<p>No se encontraron comentarios para este post.</p>");
-        } else {
-            out.print("<ul>");
-            for (ComentarioDTO comentario : comentarios) {
-                out.print("<li>" + comentario.getContenido() + "</li>");
-            }
-            out.print("</ul>");
+        // Pasar los datos a la solicitud
+        request.setAttribute("id", id);
+        request.setAttribute("post", post);
+        request.setAttribute("comentarios", comentarios);
+        
+        for(ComentarioDTO comentario : comentarios){
+            System.out.println("----------------------------------");
+            System.out.println(comentario.getUsuario().getNombreUsuario());
+            System.out.println(comentario.getContenido());
         }
 
-        out.println("</body>");
-        out.println("</html>");
+        
+
+        // Redirigir a la página JSP
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/VerComentarios.jsp");
+        dispatcher.forward(request, response);
+
     } catch (Exception e) {
         e.printStackTrace(); // Registra el error en el servidor
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al consultar publicaciones");
     }
 }
-
-
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
