@@ -37,6 +37,17 @@ public class Prueba {
         /**
          * 
          */
+        try {
+            List<Comentario> comentario = fachada.consultarComentarios(2);
+            for (Comentario comentario1 : comentario) {
+                System.out.println("Comentario: " + comentario1.toString());
+            }
+        } catch (PersistenciaException e) {
+            System.err.println("Error al registrar el usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+         
 
          
          

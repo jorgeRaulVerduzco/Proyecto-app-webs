@@ -20,7 +20,11 @@ import Entidades.Post;
 import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -246,23 +250,40 @@ public class Conversor {
         return dto;
     }
 
+    private final Set<Integer> processedComentarioIds = new HashSet<>();// evita la recursión infinita
+
     public ComentarioDTO comentarioToDto(Comentario entity) {
-        if (entity == null) return null;
-        
-        ComentarioDTO dto = new ComentarioDTO();
-        dto.setFechaHora(entity.getFechaHora());
-        dto.setContenido(entity.getContenido());
-        dto.setNumLikes(entity.getNumLikes());
-        dto.setUsuario(usuarioToDto(entity.getUsuario()));
-        
-        if (entity.getPostComentarios() != null) {
-            dto.setPostComentarios(entity.getPostComentarios().stream()
-                .map(this::postComentarioToDto)
-                .collect(Collectors.toList()));
-        }
-        
-        return dto;
+    if (entity == null) return null;
+
+    // Verifica si este Comentario ya fue procesado
+    if (processedComentarioIds.contains(entity.getId())) {
+        return null; // O devuelve un DTO parcial si lo necesitas
     }
+
+    // Marca este Comentario como procesado
+    processedComentarioIds.add(entity.getId());
+
+    ComentarioDTO dto = new ComentarioDTO();
+    dto.setFechaHora(entity.getFechaHora());
+    dto.setContenido(entity.getContenido());
+    dto.setNumLikes(entity.getNumLikes());
+    dto.setUsuario(usuarioToDto(entity.getUsuario()));
+
+    System.out.println(dto.toString());
+
+    if (entity.getPostComentarios() != null) {
+        dto.setPostComentarios(entity.getPostComentarios().stream()
+            .map(this::postComentarioToDto)
+            .filter(Objects::nonNull) // Evita agregar objetos nulos
+            .collect(Collectors.toList()));
+    }
+
+    // Limpia el conjunto después de la conversión para mantener la consistencia
+    processedComentarioIds.remove(entity.getId());
+
+    return dto;
+}
+
     
     public CategoriaDTO categoriaToDto(Categoria entity) {
         if (entity == null) return null;

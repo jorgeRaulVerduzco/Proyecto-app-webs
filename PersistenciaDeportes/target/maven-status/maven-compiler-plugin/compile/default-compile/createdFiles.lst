@@ -3,8 +3,10 @@ Entidades\Post.class
 Entidades\Post_.class
 Entidades\Usuario.class
 Excepciones\PersistenciaException.class
+IPersistencia\IPostComentario.class
 Entidades\Comentario_.class
 Entidades\Estado.class
+Persistencia\PostComentario.class
 Persistencia\Prueba.class
 Entidades\Comentario.class
 Entidades\Rol_.class

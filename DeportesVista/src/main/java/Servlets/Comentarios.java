@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import Entidades.Comentario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +13,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+
+import Negocio.ComentarioBO;
+import DTO.ComentarioDTO;
 
 /**
  *
  * @author copad
  */
 public class Comentarios extends HttpServlet {
+    
+    private ComentarioBO comentarioBo;
+    
+    public Comentarios(){
+        this.comentarioBo=new ComentarioBO();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,22 +68,47 @@ public class Comentarios extends HttpServlet {
 @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+    response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
+
     try (PrintWriter out = response.getWriter()) {
-        
-        String id = request.getParameter("id");
-        // Aquí va tu lógica para generar la respuesta HTML
+        // Validar y obtener el parámetro 'id'
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "El parámetro 'id' no es válido");
+            return;
+        }
+
+        // Consultar los comentarios usando el BO
+        List<ComentarioDTO> comentarios = comentarioBo.consultarComentarios(id);
+
+        // Generar HTML
         out.println("<html>");
         out.println("<head><title>Publicaciones</title></head>");
         out.println("<body>");
-        out.println("<h1>Comentarios del Post no. "+id+"</h1>");
+        out.println("<h1>Comentarios del Post no. " + id + "</h1>");
+
+        // Verificar si hay comentarios
+        if (comentarios == null || comentarios.isEmpty()) {
+            out.println("<p>No se encontraron comentarios para este post.</p>");
+        } else {
+            out.print("<ul>");
+            for (ComentarioDTO comentario : comentarios) {
+                out.print("<li>" + comentario.getContenido() + "</li>");
+            }
+            out.print("</ul>");
+        }
+
         out.println("</body>");
         out.println("</html>");
     } catch (Exception e) {
-        e.printStackTrace(); // Esto registra el error en el servidor
+        e.printStackTrace(); // Registra el error en el servidor
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al consultar publicaciones");
     }
 }
+
 
 
     /**

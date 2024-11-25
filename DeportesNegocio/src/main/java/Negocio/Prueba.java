@@ -9,8 +9,7 @@ import Negocio.PostBO;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.PostDTO;
-import Entidades.Post;
+import DTO.ComentarioDTO;
 
 /**
  *
@@ -20,17 +19,16 @@ public class Prueba {
 
     public static void main(String[] args) {
         // Instancia de PostBO
-        PostBO postBO = new PostBO();
+        ComentarioBO comentarioBO = new ComentarioBO();
 
         try {
             // Llamar al método que consulta publicaciones
-            List<PostDTO> postList = postBO.consultarPublicaciones();
+            List<ComentarioDTO> comentarioList = comentarioBO.consultarComentarios(2);
 
             // Mostrar los resultados
             System.out.println("Listado de publicaciones:");
-            for (PostDTO postDTO : postList) {
-                System.out.println(postDTO.getID());
-                System.out.println(postDTO); 
+            for (ComentarioDTO comentario : comentarioList) {
+                System.out.println(comentario.getContenido());
             }
 
 
