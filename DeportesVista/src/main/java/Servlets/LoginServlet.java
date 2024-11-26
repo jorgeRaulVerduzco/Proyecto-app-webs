@@ -81,29 +81,28 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        System.out.println("login: "+email+" password: "+password);
-
-        System.out.println("Intento de login - Email: " + email);
+        System.out.println("login: " + email + " password: " + password);
 
         // Validar que los campos no estén vacíos
         if (email == null || email.trim().isEmpty()
                 || password == null || password.trim().isEmpty()) {
 
             request.setAttribute("error", "Por favor complete todos los campos");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
             return;
         }
 
         try {
             boolean loginSuccess = usuarioBO.iniciarSesionFinal(email, password);
             if (loginSuccess) {
-                
                 UsuarioDTO usuario = usuarioBO.obtenerUsuarioPorEmail(email);
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 session.setAttribute("email", email);
                 session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
-                response.sendRedirect("JSP/PaginaPrincipal.jsp");
+
+                // Redirige al servlet "Post" para cargar las publicaciones
+                response.sendRedirect("Post");
             } else {
                 request.setAttribute("error", "Email o contraseña incorrectos");
                 request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
@@ -114,7 +113,6 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Error al iniciar sesión. Por favor intente nuevamente.");
             request.getRequestDispatcher("JSP/Login.jsp").forward(request, response);
         }
-
     }
 
     /**

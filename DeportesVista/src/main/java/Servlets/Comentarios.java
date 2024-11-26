@@ -103,14 +103,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         request.setAttribute("post", post);
         request.setAttribute("comentarios", comentarios);
         
-        for(ComentarioDTO comentario : comentarios){
-            System.out.println("----------------------------------");
-            System.out.println(comentario.getUsuario().getNombreUsuario());
-            System.out.println(comentario.getContenido());
-        }
-
-        
-
         // Redirigir a la página JSP
         RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/VerComentarios.jsp");
         dispatcher.forward(request, response);

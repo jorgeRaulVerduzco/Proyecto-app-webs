@@ -108,7 +108,7 @@ public class Prueba {
         nuevaPublicacion.setFechaCreacion(new Date());
         nuevaPublicacion.setTitulo("Curry es el mejorcito");
         nuevaPublicacion.setContenido("yo creo que curry es el goat");
-        nuevaPublicacion.setTipoPost("normal");
+        nuevaPublicacion.setTipoPost("anclada");
         nuevaPublicacion.setUrlImagen("https://pbs.twimg.com/media/FnU_6aDaMAAkOyz.jpg");
         nuevaPublicacion.setUsuario(nuevoUsuario);
         nuevaPublicacion.setCategoria(nuevaCategoria);
