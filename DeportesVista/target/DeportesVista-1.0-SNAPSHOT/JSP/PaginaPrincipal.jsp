@@ -30,9 +30,9 @@
                 <div class="navContainer">
                     <img src="imagenes/Sport_Logo-removebg.png" width="25" alt="">
                     <li><a href="PaginaPrincipal.jsp">AROWWAI</a></li>
-                    <li><a href="login.jsp">Iniciar sesión</a></li>
-                    <li><a href="Publicaciones.jsp">Crear publicación</a></li>
-                    <li><a href="Administracion2.jsp">Administrativo</a></li>
+                    <li><a href="${pageContext.request.contextPath}/index.jsp">Iniciar sesión</a></li>
+                    <li><a href="${pageContext.request.contextPath}/JSP/Publicaciones.jsp">Crear publicación</a></li>
+                    <li><a href="${pageContext.request.contextPath}/JSP/Administracion2.jsp">Administrativo</a></li>
                     <li><button id="darkModeToggle" class="dark-mode-btn">Modo Oscuro</button></li>
                 </div>
             </ul>
