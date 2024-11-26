@@ -30,12 +30,16 @@ public class AuthFilter implements Filter {
         // Rutas que deben estar excluidas del filtro (como la de login)
         String loginURI = httpRequest.getContextPath() + "/Login";
         String loginPage = httpRequest.getContextPath() + "/JSP/Login.jsp";
+        String singUpPage = httpRequest.getContextPath() + "/JSP/Registrar.jsp";
+        String fileCssLogin = httpRequest.getContextPath() + "/CSS/loginStyle.css";
 
         // Verifica si la URL es la de login o recursos públicos
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpRequest.getRequestURI().equals(loginPage);
+        boolean isSingUpPage = httpRequest.getRequestURI().equals(singUpPage);
+        boolean isCssFileLogin = httpRequest.getRequestURI().equals(fileCssLogin);
 
-        if (isLoginRequest || isLoginPage) {
+        if (isLoginRequest || isLoginPage || isSingUpPage || isCssFileLogin) {
             // Permitir acceso a /Login y a la página de login
             chain.doFilter(request, response);
             return;
