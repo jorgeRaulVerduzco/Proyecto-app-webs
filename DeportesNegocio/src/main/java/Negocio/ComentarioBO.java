@@ -108,4 +108,15 @@ public class ComentarioBO implements IComentarioBO {
         }
         return false;
     }
+    public List<ComentarioDTO> consultarTodosLosComentarios() {
+    try {
+        List<Comentario> comentarios = fachada.consultarTodosLosComentarios();
+        return comentarios.stream()
+                .map(conversor::comentarioToDto)
+                .collect(Collectors.toList());
+    } catch (PersistenciaException ex) {
+        Logger.getLogger(ComentarioBO.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+    }
+}
 }

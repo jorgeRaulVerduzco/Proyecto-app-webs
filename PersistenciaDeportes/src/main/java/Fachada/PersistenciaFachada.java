@@ -227,4 +227,8 @@ public class PersistenciaFachada {
     public boolean iniciarSesionFinal(String email, String contrasenia) throws PersistenciaException {
         return usuarioDAO.validarCredenciales(email, contrasenia);
     }
+    
+    public List<Comentario> consultarTodosLosComentarios() throws PersistenciaException {
+    return comentarioDAO.consultarTodosLosComentarios();
+}
 }

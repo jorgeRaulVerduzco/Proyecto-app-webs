@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class ComentarioDTO {
 
+    private int id;
     private Date fechaHora;
 
     private String contenido;
@@ -36,6 +37,14 @@ public class ComentarioDTO {
 
     public Date getFechaHora() {
         return fechaHora;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setFechaHora(Date fechaHora) {

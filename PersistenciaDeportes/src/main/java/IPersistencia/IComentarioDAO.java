@@ -58,4 +58,6 @@ public interface IComentarioDAO {
      * comentario.
      */
     public boolean eliminarComentario(int idComentario) throws PersistenciaException;
+
+    public List<Comentario> consultarTodosLosComentarios() throws PersistenciaException;
 }

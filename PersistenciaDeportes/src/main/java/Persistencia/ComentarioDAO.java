@@ -165,4 +165,15 @@ public class ComentarioDAO implements IComentarioDAO {
         }
     }
 
+    @Override
+    public List<Comentario> consultarTodosLosComentarios() throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT c FROM Comentario c", Comentario.class).getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar todos los comentarios", e);
+        } finally {
+            em.close();
+        }
+    }
 }
