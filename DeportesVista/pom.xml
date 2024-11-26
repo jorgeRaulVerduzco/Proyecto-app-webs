@@ -12,34 +12,41 @@
         <jakartaee>10.0.0</jakartaee>  <!-- Cambiar a una versión estable de Jakarta EE -->
     </properties>
 
-<dependencies>
-    <!-- Jakarta EE API -->
-    <dependency>
-        <groupId>jakarta.platform</groupId>
-        <artifactId>jakarta.jakartaee-api</artifactId>
-        <version>${jakartaee}</version>
-        <scope>provided</scope>
-    </dependency>
+    <dependencies>
+        <!-- Jakarta EE API -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee}</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- JSTL -->
-    <dependency>
-        <groupId>jakarta.servlet.jsp.jstl</groupId>
-        <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-        <version>3.0.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.glassfish.web</groupId>
-        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-        <version>3.0.1</version>
-    </dependency>
+        <!-- JSTL -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 
-    <!-- Dependencia de negocio -->
-    <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>DeportesNegocio</artifactId>
-        <version>${project.version}</version>
-    </dependency>
-</dependencies>
+        <!-- Dependencia de negocio -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>DeportesNegocio</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+    </dependencies>
     
     <build>
         <plugins>

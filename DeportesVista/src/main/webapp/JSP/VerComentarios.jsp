@@ -48,6 +48,12 @@
                     </div>
                 </div>
             </div>
+
+            <c:forEach var="comentarios" items="${comentarios}">
+                <p>${comentarios.getUsuario().getNombreUsuario()}</p>
+            </c:forEach>
+
+
             <% 
                 if (comentarios != null && !comentarios.isEmpty()) {
                     for (ComentarioDTO comentario : comentarios) {
