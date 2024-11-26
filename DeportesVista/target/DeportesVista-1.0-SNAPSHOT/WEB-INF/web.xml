@@ -16,6 +16,7 @@
         <servlet-name>ObtenerComentarios</servlet-name>
         <servlet-class>Servlets.ObtenerComentarios</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -32,6 +33,16 @@
         <servlet-name>ObtenerComentarios</servlet-name>
         <url-pattern>/ObtenerComentarios</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>Servlets.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern> <!-- Aplica el filtro a todas las URL -->
+    </filter-mapping>
+
     <session-config>
         <session-timeout>
             30

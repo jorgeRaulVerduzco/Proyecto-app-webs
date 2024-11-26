@@ -81,6 +81,7 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        System.out.println("login: "+email+" password: "+password);
 
         System.out.println("Intento de login - Email: " + email);
 
@@ -96,6 +97,7 @@ public class LoginServlet extends HttpServlet {
         try {
             boolean loginSuccess = usuarioBO.iniciarSesionFinal(email, password);
             if (loginSuccess) {
+                
                 UsuarioDTO usuario = usuarioBO.obtenerUsuarioPorEmail(email);
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);

@@ -46,14 +46,7 @@ public class Prueba {
             System.err.println("Error al registrar el usuario: " + e.getMessage());
             e.printStackTrace();
         }
-
-         
-
-         
-         
-
-         
-
+        prueba1(fachada);
 
     }
     public static void pruebaComentarios(PersistenciaFachada fachada){
