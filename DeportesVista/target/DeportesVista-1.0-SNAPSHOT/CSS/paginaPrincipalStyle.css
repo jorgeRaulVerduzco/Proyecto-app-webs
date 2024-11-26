@@ -186,6 +186,11 @@ main {
     align-items: center;
     gap: 20px;
 }
+ .postAnclado{
+    background-color: #f2f4f7;
+    border: none;
+    cursor: pointer;
+}
 
 .publicacion-normal, .anclada {
     background-color: var(--colorBlanco);
@@ -280,10 +285,17 @@ section.publicacion {
 /*
     ----------------------------------- usuarios --------------------------------
 */
-.usuario{
+
+.usuario, .usuario-anclado{
     display: flex;
     align-items: center;
     gap: 5px;
+    
+}
+.usuario-anclado{
+    padding: 8px 12px 0 8px;
+}
+.usuario{
     padding: 12px 21px 0 21px;
 }
 .usuarioNombre{
