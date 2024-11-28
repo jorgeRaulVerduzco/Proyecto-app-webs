@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Publicación</title>
-        <link rel="preload" href="${pageContext.request.contextPath}/CSS/Styles2.css" as="style" onload="this.rel = 'stylesheet'">
+        <link rel="preload" href="${pageContext.request.contextPath}/CSS/style2.css" as="style" onload="this.rel = 'stylesheet'">
 </head>
 <body>
     <header>
