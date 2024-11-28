@@ -208,7 +208,7 @@ public class Conversor {
         dto.setTipoPost(entity.getTipoPost());
         dto.setNumLikes(entity.getNumLikes());
         dto.setUrlImagen(entity.getUrlImagen());
-    
+
         // Solo establecer información básica del usuario, sin sus posts
         if (entity.getUsuario() != null) {
             UsuarioDTO usuarioDto = new UsuarioDTO();

@@ -4,13 +4,15 @@
     Author     : INEGI
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicaciones</title><link rel="stylesheet" href="style2.css">
+    <title>Crear Publicación</title>
+        <link rel="preload" href="${pageContext.request.contextPath}/CSS/Styles2.css" as="style" onload="this.rel = 'stylesheet'">
 </head>
 <body>
     <header>
@@ -21,7 +23,7 @@
         <section class="formulario-publicacion">
             <h2>Crear nueva publicación</h2>
 
-            <form id="form-publicacion">
+            <form id="form-publicacion" action="${pageContext.request.contextPath}/CrearPublicacion" method="POST" enctype="multipart/form-data">
                 <div class="campo-formulario">
                     <label for="titulo">Título <span class="requerido">*</span></label>
                     <input type="text" id="titulo" name="titulo" required>
@@ -60,7 +62,7 @@
     </main>
 
     <footer>
-        <p>© 2023 Blog App. All rights reserved.</p>
+        <p>© 2024 Blog App. All rights reserved.</p>
     </footer>
 </body>
 </html>

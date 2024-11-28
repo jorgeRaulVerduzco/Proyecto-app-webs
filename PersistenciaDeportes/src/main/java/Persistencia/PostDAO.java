@@ -4,6 +4,7 @@
  */
 package Persistencia;
 
+import Entidades.Categoria;
 import Entidades.Post;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -39,16 +41,40 @@ public class PostDAO implements IPostDAO {
     @Override
     public void registrarPublicacion(Post post) throws PersistenciaException {
         EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = null;
         try {
-            em.getTransaction().begin();
+            transaction = em.getTransaction();
+            transaction.begin();
+
             post.setFechaCreacion(new Date());
+
+            // Verificar y recuperar el usuario existente
+            if (post.getUsuario() != null && post.getUsuario().getId() == null) {
+                Usuario usuarioExistente = em.createQuery(
+                        "SELECT u FROM Usuario u WHERE u.correo = :correo", Usuario.class)
+                        .setParameter("correo", post.getUsuario().getCorreo())
+                        .getSingleResult();
+                post.setUsuario(usuarioExistente);
+            }
+            post.setFechaCreacion(new Date());
+
+            // Ensure categoria is managed
+            if (post.getCategoria() != null) {
+                Categoria categoria = em.merge(post.getCategoria());
+                post.setCategoria(categoria);
+            }
+
             em.persist(post);
-            em.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
             throw new PersistenciaException("Error al registrar la publicacion", e);
         } finally {
-            em.close();
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -106,8 +132,8 @@ public class PostDAO implements IPostDAO {
         EntityManager em = emf.createEntityManager();
         try {
             Query query = em.createQuery("SELECT p FROM Post p WHERE p.id = :id");
-        query.setParameter("id", id);
-        return (Post) query.getSingleResult(); // Si no hay resultado, lanza excepción
+            query.setParameter("id", id);
+            return (Post) query.getSingleResult(); // Si no hay resultado, lanza excepción
         } catch (Exception e) {
             throw new PersistenciaException("Error al consultar la publicacion", e);
         } finally {
@@ -195,4 +221,5 @@ public class PostDAO implements IPostDAO {
             em.close();
         }
     }
+
 }

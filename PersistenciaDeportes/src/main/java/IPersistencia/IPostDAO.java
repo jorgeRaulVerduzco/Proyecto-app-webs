@@ -4,6 +4,7 @@
  */
 package IPersistencia;
 
+import Entidades.Categoria;
 import Entidades.Post;
 import Excepciones.PersistenciaException;
 import java.util.List;
@@ -78,4 +79,5 @@ public interface IPostDAO {
      * publicación.
      */
     public void anclarPost(int idPost) throws PersistenciaException;
+    
 }

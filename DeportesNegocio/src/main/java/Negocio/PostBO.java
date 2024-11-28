@@ -10,6 +10,7 @@ import Entidades.Post;
 import Excepciones.PersistenciaException;
 import Fachada.PersistenciaFachada;
 import INegocio.IPostBO;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,12 +44,30 @@ public class PostBO implements IPostBO {
      */
     @Override
     public void registrarPublicacion(PostDTO postDTO) {
-        try {
-            Post post = conversor.postToEntity(postDTO);
-            fachada.registrarPublicacion(post);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, null, ex);
+       try {
+        // Ensure all required fields are set
+        if (postDTO == null) {
+            throw new IllegalArgumentException("PostDTO cannot be null");
         }
+        
+        // Set creation date if not already set
+        if (postDTO.getFechaCreacion() == null) {
+            postDTO.setFechaCreacion(new Date());
+        }
+        
+        // Validate required fields
+        if (postDTO.getTitulo() == null || postDTO.getContenido() == null) {
+            throw new IllegalArgumentException("Titulo and Contenido are required");
+        }
+        
+        Post post = conversor.postToEntity(postDTO);
+        fachada.registrarPublicacion(post);
+    } catch (PersistenciaException ex) {
+        // Log the full exception for debugging
+        Logger.getLogger(PostBO.class.getName()).log(Level.SEVERE, "Error registering publication", ex);
+        // You might want to rethrow or handle differently based on your error handling strategy
+        throw new RuntimeException("Error registering publication", ex);
+    }
     }
 
     /**
