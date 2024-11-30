@@ -21,7 +21,7 @@
                     <img src="imagenes/Sport_Logo-removebg.png" alt="">
                 </div>
                 <h1>Registrarse</h1>
-                <form action="${pageContext.request.contextPath}/Registrar" method="POST">
+                <form action="${pageContext.request.contextPath}/Registrar" method="POST" enctype="multipart/form-data">
                     <!-- Grupo 1: Información Personal Básica -->
                     <div id="grupo_1" class="grupo_1">
                         <div class="input-user">
@@ -112,12 +112,15 @@
                         <input type="hidden" name="rol" value="usuario">
                     </div>
 
+                    <div class="input-user">
+                        <label for="imagen">Foto de Perfil</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*" class="input-file">
+                    </div>
+
                     <button id="botonSiguiente" type="submit">Registrar</button>
                 </form>
             </div>
         </div>
-        <footer>
-            <p>© 2024 Blog Deportes. Todos los derechos reservados.</p>
-        </footer>
+   
     </body>
 </html>

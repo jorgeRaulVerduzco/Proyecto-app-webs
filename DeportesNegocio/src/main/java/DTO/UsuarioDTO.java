@@ -12,6 +12,7 @@ import java.util.List;
  * @author INEGI
  */
 public class UsuarioDTO {
+
     private Long id;
     private String nombre;
     private String apellidoPaterno;
@@ -25,13 +26,22 @@ public class UsuarioDTO {
     private List<ComentarioDTO> comentarios;
     private RolDTO rol;
     private String genero;
-    private MunicipioDTO municipio; 
+    private MunicipioDTO municipio;
     private EstadoDTO estado;
+    private String urlImagen;
 
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long id,String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<PostDTO> posts, List<ComentarioDTO> comentarios, RolDTO rol, String genero, MunicipioDTO municipio, EstadoDTO estado) {
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public UsuarioDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<PostDTO> posts, List<ComentarioDTO> comentarios, RolDTO rol, String genero, MunicipioDTO municipio, EstadoDTO estado) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -48,11 +58,11 @@ public class UsuarioDTO {
         this.municipio = municipio;
         this.estado = estado;
     }
-    
+
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -171,6 +181,6 @@ public class UsuarioDTO {
 
     @Override
     public String toString() {
-        return "UsuarioDTO{" +"id: "+id+ "nombre=" + nombre + ", apellidoPaterno:" + apellidoPaterno + ", apellidoMaterno:" + apellidoMaterno + ", correo:" + correo + ", nombreUsuario: " + nombreUsuario + ", contrasenia: " + contrasenia + ", telefono: " + telefono + ", fechaNacimiento: " + fechaNacimiento + ", posts: " + posts + ", comentarios: " + comentarios + ", rol: " + rol + ", genero: " + genero + ", municipio: " + municipio + ", estado: " + estado + '}';
+        return "UsuarioDTO{" + "id: " + id + "nombre=" + nombre + ", apellidoPaterno:" + apellidoPaterno + ", apellidoMaterno:" + apellidoMaterno + ", correo:" + correo + ", nombreUsuario: " + nombreUsuario + ", contrasenia: " + contrasenia + ", telefono: " + telefono + ", fechaNacimiento: " + fechaNacimiento + ", posts: " + posts + ", comentarios: " + comentarios + ", rol: " + rol + ", genero: " + genero + ", municipio: " + municipio + ", estado: " + estado + '}';
     }
 }

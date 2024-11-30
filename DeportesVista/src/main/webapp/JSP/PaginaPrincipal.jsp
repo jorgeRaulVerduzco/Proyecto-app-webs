@@ -57,7 +57,7 @@
                                             <article class='anclada'>
                                                 <div class='usuario-anclado'>
                                                     <div class='usuarioImg'>
-                                                        <img src='' alt='Imagen del usuario'>
+                                                        <img src='${post.usuario.urlImagen != null ? post.usuario.urlImagen : "uploads/perfiles/default-profile.png"}' alt='Imagen del usuario'>
                                                     </div>
                                                     <div class='usuarioNombre'>
                                                         <span>${post.usuario.nombreUsuario}</span>
@@ -95,7 +95,7 @@
                                 <article class='publicacion-normal'>
                                     <div class='usuario'>
                                         <div class='usuarioImg'>
-                                            <img src='' alt=''>
+                                            <img src='${post.usuario.urlImagen != null ? post.usuario.urlImagen : "uploads/perfiles/default-profile.png"}' alt='Imagen del usuario'>
                                         </div>
                                         <div class='usuarioNombre'>
                                             <span>${post.usuario.nombreUsuario}</span>

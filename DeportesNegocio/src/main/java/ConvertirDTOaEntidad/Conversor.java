@@ -51,7 +51,7 @@ public class Conversor {
         usuario.setRol(rolToEntity(dto.getRol()));
         usuario.setMunicipio(municipioToEntity(dto.getMunicipio()));
         usuario.setEstado(estadoToEntity(dto.getEstado()));
-
+        usuario.setUrlImagen(dto.getUrlImagen());
         if (dto.getPosts() != null) {
             usuario.setPosts(dto.getPosts().stream()
                     .map(this::postToEntity)
@@ -175,9 +175,12 @@ public class Conversor {
 
         return rol;
     }
+
     public UsuarioDTO usuarioToDto(Usuario entity) {
-        if (entity == null) return null;
-        
+        if (entity == null) {
+            return null;
+        }
+
         UsuarioDTO dto = new UsuarioDTO();
         dto.setNombre(entity.getNombre());
         dto.setApellidoPaterno(entity.getApellidoPaterno());
@@ -191,14 +194,17 @@ public class Conversor {
         dto.setRol(rolToDto(entity.getRol()));
         dto.setMunicipio(municipioToDto(entity.getMunicipio()));
         dto.setEstado(estadoToDto(entity.getEstado()));
-        
+        dto.setUrlImagen(entity.getUrlImagen());
+
         // No convertir las colecciones aquí para evitar la recursión
         return dto;
     }
-    
+
     public PostDTO postToDto(Post entity) {
-        if (entity == null) return null;
-    
+        if (entity == null) {
+            return null;
+        }
+
         PostDTO dto = new PostDTO();
         dto.setID(entity.getId());
         dto.setFechaCreacion(entity.getFechaCreacion());
@@ -217,33 +223,37 @@ public class Conversor {
             usuarioDto.setNombreUsuario(entity.getUsuario().getNombreUsuario());
             dto.setUsuario(usuarioDto);
         }
-    
+
         return dto;
     }
-    
-    
+
     public RolDTO rolToDto(Rol entity) {
-        if (entity == null) return null;
-        
+        if (entity == null) {
+            return null;
+        }
+
         RolDTO dto = new RolDTO();
         dto.setTipoRol(entity.getTipoRol());
         // No establecer la lista de usuarios para evitar la recursión
         return dto;
     }
-    
-    
+
     public MunicipioDTO municipioToDto(Municipio entity) {
-        if (entity == null) return null;
-        
+        if (entity == null) {
+            return null;
+        }
+
         MunicipioDTO dto = new MunicipioDTO();
         dto.setNombre(entity.getNombre());
         // No convertir el usuario aquí para evitar la recursión
         return dto;
     }
-    
+
     public EstadoDTO estadoToDto(Estado entity) {
-        if (entity == null) return null;
-        
+        if (entity == null) {
+            return null;
+        }
+
         EstadoDTO dto = new EstadoDTO();
         dto.setNombre(entity.getNombre());
         // No convertir el usuario aquí para evitar la recursión
@@ -253,74 +263,81 @@ public class Conversor {
     private final Set<Integer> processedComentarioIds = new HashSet<>();// evita la recursión infinita
 
     public ComentarioDTO comentarioToDto(Comentario entity) {
-    if (entity == null) return null;
-
-    // Verifica si este Comentario ya fue procesado
-    if (processedComentarioIds.contains(entity.getId())) {
-        return null; // O devuelve un DTO parcial si lo necesitas
-    }
-
-    // Marca este Comentario como procesado
-    processedComentarioIds.add(entity.getId());
-
-    ComentarioDTO dto = new ComentarioDTO();
-    dto.setFechaHora(entity.getFechaHora());
-    dto.setContenido(entity.getContenido());
-    dto.setNumLikes(entity.getNumLikes());
-    dto.setUsuario(usuarioToDto(entity.getUsuario()));
-
-    System.out.println(dto.toString());
-
-    if (entity.getPostComentarios() != null) {
-        dto.setPostComentarios(entity.getPostComentarios().stream()
-            .map(this::postComentarioToDto)
-            .filter(Objects::nonNull) // Evita agregar objetos nulos
-            .collect(Collectors.toList()));
-    }
-
-    // Limpia el conjunto después de la conversión para mantener la consistencia
-    processedComentarioIds.remove(entity.getId());
-
-    return dto;
-}
-
-    
-    public CategoriaDTO categoriaToDto(Categoria entity) {
-        if (entity == null) return null;
-        
-        CategoriaDTO dto = new CategoriaDTO();
-        dto.setNombre(entity.getNombre());
-        
-        if (entity.getPosts() != null) {
-            dto.setPosts(entity.getPosts().stream()
-                .map(this::postToDto)
-                .collect(Collectors.toList()));
+        if (entity == null) {
+            return null;
         }
-        
+
+        // Verifica si este Comentario ya fue procesado
+        if (processedComentarioIds.contains(entity.getId())) {
+            return null; // O devuelve un DTO parcial si lo necesitas
+        }
+
+        // Marca este Comentario como procesado
+        processedComentarioIds.add(entity.getId());
+
+        ComentarioDTO dto = new ComentarioDTO();
+        dto.setFechaHora(entity.getFechaHora());
+        dto.setContenido(entity.getContenido());
+        dto.setNumLikes(entity.getNumLikes());
+        dto.setUsuario(usuarioToDto(entity.getUsuario()));
+
+        System.out.println(dto.toString());
+
+        if (entity.getPostComentarios() != null) {
+            dto.setPostComentarios(entity.getPostComentarios().stream()
+                    .map(this::postComentarioToDto)
+                    .filter(Objects::nonNull) // Evita agregar objetos nulos
+                    .collect(Collectors.toList()));
+        }
+
+        // Limpia el conjunto después de la conversión para mantener la consistencia
+        processedComentarioIds.remove(entity.getId());
+
         return dto;
     }
-    
+
+    public CategoriaDTO categoriaToDto(Categoria entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        CategoriaDTO dto = new CategoriaDTO();
+        dto.setNombre(entity.getNombre());
+
+        if (entity.getPosts() != null) {
+            dto.setPosts(entity.getPosts().stream()
+                    .map(this::postToDto)
+                    .collect(Collectors.toList()));
+        }
+
+        return dto;
+    }
+
     public PostComentarioDTO postComentarioToDto(PostComentario entity) {
-        if (entity == null) return null;
-        
+        if (entity == null) {
+            return null;
+        }
+
         PostComentarioDTO dto = new PostComentarioDTO();
         dto.setPost(postToDto(entity.getPost()));
         dto.setComentario(comentarioToDto(entity.getComentario()));
-        
+
         return dto;
     }
-   
-public List<PostDTO> getPostsForUsuario(Usuario usuario) {
-    if (usuario == null || usuario.getPosts() == null) return null;
-    
-    return usuario.getPosts().stream()
-        .map(post -> {
-            PostDTO dto = new PostDTO();
-            dto.setTitulo(post.getTitulo());
-            dto.setContenido(post.getContenido());
-            // No incluir el usuario completo, solo información básica
-            return dto;
-        })
-        .collect(Collectors.toList());
-}
+
+    public List<PostDTO> getPostsForUsuario(Usuario usuario) {
+        if (usuario == null || usuario.getPosts() == null) {
+            return null;
+        }
+
+        return usuario.getPosts().stream()
+                .map(post -> {
+                    PostDTO dto = new PostDTO();
+                    dto.setTitulo(post.getTitulo());
+                    dto.setContenido(post.getContenido());
+                    // No incluir el usuario completo, solo información básica
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }

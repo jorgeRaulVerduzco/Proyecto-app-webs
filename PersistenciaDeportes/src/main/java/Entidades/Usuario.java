@@ -75,6 +75,8 @@ public class Usuario implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "estado_id", referencedColumnName = "id")
     private Estado estado;
+    @Column(name = "urlImagen", nullable = false)
+    private String urlImagen;
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String nombreUsuario, String contrasenia, String telefono, Date fechaNacimiento, List<Post> posts, List<Comentario> comentarios, Rol rol, String genero, Municipio municipio, Estado estado) {
         this.nombre = nombre;
@@ -106,6 +108,14 @@ public class Usuario implements Serializable {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     public void setNombre(String nombre) {
@@ -218,7 +228,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id: " + id + ", nombre: " + nombre + ", apellidoPaterno: " + apellidoPaterno + ", apellidoMaterno: " + apellidoMaterno + ", correo: " + correo + ", nombreUsuario: " + nombreUsuario +  '}';
+        return "Usuario{" + "id: " + id + ", nombre: " + nombre + ", apellidoPaterno: " + apellidoPaterno + ", apellidoMaterno: " + apellidoMaterno + ", correo: " + correo + ", nombreUsuario: " + nombreUsuario + '}';
     }
 
 }
