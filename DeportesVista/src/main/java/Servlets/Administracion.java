@@ -221,12 +221,12 @@ public class Administracion extends HttpServlet {
             // Script para manejar acciones
             out.println("<script>");
             out.println("function verPublicacion(id) {");
-            out.println("    window.location.href = 'AdminPanel?action=verPublicacion&id=' + id;");
+            out.println("    window.location.href = 'AdminPanel.jsp?action=verPublicacion&id=' + id;");
             out.println("}");
             
             out.println("function borrarPublicacion(id) {");
             out.println("    if (confirm('¿Estás seguro de borrar esta publicación?')) {");
-            out.println("        window.location.href = 'AdminPanel?action=borrarPublicacion&id=' + id;");
+            out.println("        window.location.href = 'AdminPanel.jsp?action=borrarPublicacion&id=' + id;");
             out.println("    }");
             out.println("}");
             
@@ -236,7 +236,7 @@ public class Administracion extends HttpServlet {
             
             out.println("function borrarComentario(id) {");
             out.println("    if (confirm('¿Estás seguro de borrar este comentario?')) {");
-            out.println("        window.location.href = 'AdminPanel?action=borrarComentario&id=' + id;");
+            out.println("        window.location.href = 'AdminPanel.jsp?action=borrarComentario&id=' + id;");
             out.println("    }");
             out.println("}");
             out.println("</script>");
@@ -258,17 +258,23 @@ public class Administracion extends HttpServlet {
     }
 
     private void borrarPublicacion(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+        throws ServletException, IOException {
+    try {
         int id = Integer.parseInt(request.getParameter("id"));
         postBO.eliminarPublicacion(id);
-        response.sendRedirect("AdminPanel");
+        response.sendRedirect("Administracion2");
+    } catch (NumberFormatException e) {
+        request.setAttribute("error", "ID de publicación inválido.");
+        request.getRequestDispatcher("/JSP/Error.jsp").forward(request, response);
     }
+}
+
 
     private void borrarComentario(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         comentarioBO.eliminarComentario(id);
-        response.sendRedirect("AdminPanel");
+        response.sendRedirect("Administracion2");
     }
 
     private void editarPublicacion(HttpServletRequest request, HttpServletResponse response) 
@@ -282,7 +288,7 @@ public class Administracion extends HttpServlet {
         postDTO.setContenido(contenido);
         
         postBO.editarPublicacion(id, postDTO);
-        response.sendRedirect("AdminPanel");
+        response.sendRedirect("AdminPanel.jsp");
     }
     /**
      * Returns a short description of the servlet.

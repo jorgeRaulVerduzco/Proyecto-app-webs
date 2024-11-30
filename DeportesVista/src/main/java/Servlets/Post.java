@@ -77,7 +77,7 @@ public class Post extends HttpServlet {
             List<PostDTO> postList = postBO.consultarPublicaciones();
 
             for (PostDTO post : postList) {
-                System.out.println(post.getID()); // Depuración
+                System.out.println(post.getID()); 
             }
 
             // Pasa los datos al JSP

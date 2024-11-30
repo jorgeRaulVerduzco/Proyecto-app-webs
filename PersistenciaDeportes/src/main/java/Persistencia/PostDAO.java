@@ -144,27 +144,32 @@ public class PostDAO implements IPostDAO {
     /**
      * Elimina una publicación de la base de datos por su ID.
      *
+     * @param id
      * @param idPost ID de la publicación que se desea eliminar.
      * @throws PersistenciaException Si ocurre un error durante la eliminación
      * de la publicación.
      */
     @Override
-    public void eliminarPublicacion(int idPost) throws PersistenciaException {
-        EntityManager em = emf.createEntityManager();
-        try {
+    public void eliminarPublicacion(int id) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        // Buscar la publicación por ID
+        Post post = em.find(Post.class, id);
+        if (post != null) {
+            // Iniciar una transacción
             em.getTransaction().begin();
-            Post post = em.find(Post.class, idPost);
-            if (post != null) {
-                em.remove(post);
-            }
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw new PersistenciaException("Error al eliminar la publicacion", e);
-        } finally {
-            em.close();
+            em.remove(post);  // Eliminar la publicación
+            em.getTransaction().commit();  // Confirmar la transacción
         }
+    } catch (Exception e) {
+        // Manejo de excepciones, si algo falla
+        e.printStackTrace();
+        throw new RuntimeException("Error al eliminar la publicación");
+    } finally {
+        em.close();  // Cerrar el EntityManager
     }
+}
+
 
     /**
      * Incrementa el número de "likes" de una publicación por su ID.

@@ -32,7 +32,7 @@
                     <li><a href="PaginaPrincipal.jsp">AROWWAI</a></li>
                     <li><a href="${pageContext.request.contextPath}/index.jsp">Iniciar sesión</a></li>
                     <li><a href="${pageContext.request.contextPath}/JSP/Publicaciones.jsp">Crear publicación</a></li>
-                    <li><a href="${pageContext.request.contextPath}/JSP/Administracion2.jsp">Administrativo</a></li>
+                    <li><a href="${pageContext.request.contextPath}/JSP/AdminPanel.jsp">Administrativo</a></li>
                     <li><button id="darkModeToggle" class="dark-mode-btn">Modo Oscuro</button></li>
                 </div>
             </ul>
