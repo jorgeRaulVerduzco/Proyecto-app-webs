@@ -10,3 +10,7 @@ https://drive.google.com/file/d/1-KNXeQ2VJJaKW2D2MjgRjwQUSLIeK5wy/view?usp=shari
 
 LINK DEL STORYBOARD:
 https://www.figma.com/design/sfnVrgYJBaFFjJKGl8jXd8/Untitled?node-id=0-1&t=qMqzeCyrK7SuFAYE-1
+
+DIAGRAMA DE COMPONENTES:
+https://drive.google.com/file/d/1nMOgHxCAS-eGrTNNFGr5gUAho-v0AE2m/view?usp=drive_link
+
