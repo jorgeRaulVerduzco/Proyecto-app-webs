@@ -66,11 +66,14 @@ public class ComentarioDAO implements IComentarioDAO {
 
             em.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             throw new PersistenciaException("Error al registrar comentario", e);
         } finally {
             em.close();
         }
+        
     }
 
     /**

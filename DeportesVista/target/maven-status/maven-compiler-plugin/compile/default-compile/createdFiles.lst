@@ -1,0 +1,9 @@
+Servlets\Post.class
+Servlets\ObtenerComentarios.class
+Servlets\Administracion.class
+Servlets\RegistrarServlet.class
+com\mycompany\deportesvista\resources\JakartaEE11Resource.class
+Servlets\LoginServlet.class
+Servlets\AuthFilter.class
+com\mycompany\deportesvista\JakartaRestConfiguration.class
+Servlets\Comentarios.class

@@ -7,6 +7,14 @@ package Negocio;
 
 import DTO.PostDTO;
 
+import java.util.Date;
+
+import Entidades.Usuario;
+import DTO.ComentarioDTO;
+import DTO.UsuarioDTO;
+import Negocio.ComentarioBO;
+import Negocio.UsuarioBO;
+
 /**
  *
  * @author copad
@@ -14,13 +22,22 @@ import DTO.PostDTO;
 public class Prueba {
 
     public static void main(String[] args) {
+        UsuarioBO usuario = new UsuarioBO();
+        UsuarioDTO usua = usuario.obtenerUsuarioPorEmail("copadoe6@gmail.com");
+        Date fecha = new Date();
         // Instancia de PostBO
-        PostBO postBO = new PostBO();
+        ComentarioDTO com = new ComentarioDTO();
+        com.setContenido("hola este es comentario 2");
+        com.setFechaHora(fecha);
+        com.setUsuario(usua);
+        com.setNumLikes(1);
+
+        ComentarioBO comentarios = new ComentarioBO();
+       
+
 
         try {
-            PostDTO post=postBO.consultarPublicacionesById(2);
-            System.out.println("Post: " + post);
-            
+            comentarios.registrarComentario(com, 1);         
 
 
         } catch (Exception e) {

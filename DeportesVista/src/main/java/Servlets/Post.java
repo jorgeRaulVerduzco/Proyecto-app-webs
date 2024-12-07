@@ -76,13 +76,10 @@ public class Post extends HttpServlet {
             // Consulta las publicaciones
             List<PostDTO> postList = postBO.consultarPublicaciones();
 
-            for (PostDTO post : postList) {
-                System.out.println(post.getID()); 
-            }
+            
 
             // Pasa los datos al JSP
             request.setAttribute("postList", postList);
-
 
             // Redirige a la página principal
             RequestDispatcher dispatcher = request.getRequestDispatcher("/JSP/PaginaPrincipal.jsp");

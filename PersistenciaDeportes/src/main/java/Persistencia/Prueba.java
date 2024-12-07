@@ -92,6 +92,8 @@ public class Prueba {
         nuevoUsuario.setMunicipio(municipio);
         nuevoUsuario.setEstado(estado);
         nuevoUsuario.setGenero("masculino");
+        nuevoUsuario.setUrlImagen("http://localhost");
+        
 
         try {
             fachada.registrarUsuario(nuevoUsuario);
@@ -106,10 +108,12 @@ public class Prueba {
 
         Post nuevaPublicacion = new Post();
         nuevaPublicacion.setFechaCreacion(new Date());
-        nuevaPublicacion.setTitulo("Curry es el mejorcito");
-        nuevaPublicacion.setContenido("yo creo que curry es el goat");
+        nuevaPublicacion.setTitulo("Messi has 'more years to play', but unwilling to make World Cup commitment");
+        nuevaPublicacion.setContenido("Lionel Messi has not given any thought to his retirement, though the Argentina legend has again refused to commit to playing at the 2026 World Cup.\r\n" + //
+                        "\r\n" + //
+                        "One day before he celebrated the 20th anniversary of his senior debut for Barcelona, Messi recorded five goal involvements (three goals, two assists) in Argentina's 6-0 rout of Bolivia on Tuesday.");
         nuevaPublicacion.setTipoPost("anclada");
-        nuevaPublicacion.setUrlImagen("https://pbs.twimg.com/media/FnU_6aDaMAAkOyz.jpg");
+        nuevaPublicacion.setUrlImagen("https://prod-media.beinsports.com/image/1729203628634_ee83c009-2cdd-4d56-afdc-2f15f30d31e5.jpg");
         nuevaPublicacion.setUsuario(nuevoUsuario);
         nuevaPublicacion.setCategoria(nuevaCategoria);
 
@@ -133,12 +137,12 @@ public class Prueba {
         }
 
         Comentario nuevoComentario = new Comentario();
-        nuevoComentario.setContenido("si le sabes");
+        nuevoComentario.setContenido("his decision to turn his back on Europe led many to suggest the end of his career was near");
         nuevoComentario.setFechaHora(new Date());
         nuevoComentario.setUsuario(nuevoUsuario);
 
         try {
-            fachada.registrarComentario(nuevoComentario, nuevaPublicacion.getId());
+            fachada.registrarComentario(nuevoComentario, 1);
             System.out.println("Comentario registrado: " + nuevoComentario.getContenido());
         } catch (PersistenciaException e) {
             System.err.println("Error al registrar el comentario: " + e.getMessage());
