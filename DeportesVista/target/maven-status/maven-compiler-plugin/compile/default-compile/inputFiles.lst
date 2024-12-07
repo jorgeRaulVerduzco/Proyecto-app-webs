@@ -3,6 +3,10 @@ C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\Administracion.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\AuthFilter.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\Comentarios.java
+<<<<<<< HEAD
+=======
+C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\CrearPublicacionServlet.java
+>>>>>>> f2f06c0
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\LoginServlet.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\ObtenerComentarios.java
 C:\Users\copad\Documents\tareas\aplicaciones web\Proyecto-app-webs\DeportesVista\src\main\java\Servlets\Post.java

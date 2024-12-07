@@ -7,3 +7,7 @@ Servlets\LoginServlet.class
 Servlets\AuthFilter.class
 com\mycompany\deportesvista\JakartaRestConfiguration.class
 Servlets\Comentarios.class
+<<<<<<< HEAD
+=======
+Servlets\CrearPublicacionServlet.class
+>>>>>>> f2f06c0
