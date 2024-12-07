@@ -21,6 +21,9 @@ import Entidades.PostComentario;
 import Entidades.Rol;
 import Entidades.Usuario;
 
+import Persistencia.UsuarioDAO;
+import Entidades.Usuario;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -92,16 +95,37 @@ public class Conversor {
         return post;
     }
 
+    /**
+     * Converts a DTO (Data Transfer Object) of a Comentario to an Entity object.
+     *
+     * @param dto The DTO object to be converted.
+     * @return The corresponding Entity object. If the input DTO is null, returns null.
+     *
+     * @throws NullPointerException If the input DTO is null or any of its nested objects are null.
+     */
     public Comentario comentarioToEntity(ComentarioDTO dto) {
         if (dto == null) {
             return null;
         }
+        UsuarioDAO buscarUsuario = new UsuarioDAO();
+        Usuario usuario = null;
+        try {
+            usuario = buscarUsuario.obtenerPorEmail(dto.getUsuario().getCorreo());
+            if (usuario == null) {
+                throw new IllegalStateException("No se encontró un usuario con el correo: " + dto.getUsuario().getCorreo());
+            }
+        } catch (Exception e) {
+            // Maneja la excepción adecuadamente, por ejemplo:
+            throw new IllegalStateException("Error al obtener el usuario desde la BD", e);
+        }
+        
+        
 
         Comentario comentario = new Comentario();
         comentario.setFechaHora(dto.getFechaHora());
         comentario.setContenido(dto.getContenido());
         comentario.setNumLikes(dto.getNumLikes());
-        comentario.setUsuario(usuarioToEntity(dto.getUsuario()));
+        comentario.setUsuario(usuario);
 
         if (dto.getPostComentarios() != null) {
             comentario.setPostComentarios(dto.getPostComentarios().stream()
@@ -111,6 +135,7 @@ public class Conversor {
 
         return comentario;
     }
+
 
     public Categoria categoriaToEntity(CategoriaDTO dto) {
         if (dto == null) {

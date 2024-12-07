@@ -69,7 +69,8 @@
                                                     <p>${post.contenido}</p>
                                                 </div>
 
-                                                <img src="${post.getUrlImagen() != null ? post.getUrlImagen() : 'placeholder.png'}" alt="Imagen de la publicación" class='imagen-publicacion'>
+                                                <img src="${post.getUrlImagen() != null ? post.getUrlImagen() : 'placeholder.png'}" alt="Imagen de la publicación" class="imagen-publicacion">
+
 
                                             </article>
                                         </button>

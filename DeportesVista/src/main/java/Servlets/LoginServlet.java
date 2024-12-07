@@ -100,6 +100,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("usuario", usuario);
                 session.setAttribute("email", email);
                 session.setAttribute("nombreUsuario", usuario.getNombreUsuario());
+                session.setAttribute("id", usuario.getId());
 
                 // Redirige al servlet "Post" para cargar las publicaciones
                 response.sendRedirect("Post");
